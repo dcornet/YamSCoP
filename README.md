@@ -85,5 +85,5 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install("EBImage")
 ```
 
-For Rvision: visit [RVision installing guidelines]([URL](https://swarm-lab.github.io/Rvision/articles/z1_install.html))
+For Rvision: visit [RVision installing guidelines](https://swarm-lab.github.io/Rvision/articles/z1_install.html)
 
