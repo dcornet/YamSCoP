@@ -5,6 +5,7 @@
 ## Overview
 YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate comprehensive phenotypic analysis of yams, focusing on both color and shape traits through a series of structured scripts. These scripts process raw image data, extract phenotypic information, and perform advanced statistical analysis to understand genetic variations and their implications on yam phenotypes. 
 
+!!!!!!!!caution: image acquisition!!!!!!!
 
 ## Scripts Description
 
@@ -30,6 +31,7 @@ Converted JPG images are outputed to this [directory](./out/JPGconvertedPics/). 
 
 ### 4. Get Picture Color Chart
 Analyzes images to retrieve color chart data, which is used to calibrate and correct colors in phenotyping images accurately.
+simpleBlobDetector XXXXXXXXXX
 
 ### 5. Get Chart Delta E 2000
 Calculates the Delta E 2000 color difference values from the color charts within images, providing a measure of color accuracy and consistency.
