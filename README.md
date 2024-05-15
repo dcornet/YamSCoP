@@ -1,6 +1,6 @@
 # YamSCoP: Yam Shape and Color Phenotyping Pipeline
 
-![Alt text]([URL_to_image](https://github.com/dcornet/YamSCoP/blob/main/Images/Pipeline.png)
+![Alt text]([URL_to_image](https://github.com/dcornet/YamSCoP/blob/main/Images/Pipeline.png))
 
 ## Overview
 YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate comprehensive phenotypic analysis of yams, focusing on both color and shape traits through a series of structured scripts. These scripts process raw image data, extract phenotypic information, and perform advanced statistical analysis to understand genetic variations and their implications on yam phenotypes.
@@ -85,5 +85,5 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install("EBImage")
 ```
 
-For Rvision: visit [RVision installing guidelines]([URL](https://swarm-lab.github.io/Rvision/articles/z1_install.html)
+For Rvision: visit [RVision installing guidelines]([URL](https://swarm-lab.github.io/Rvision/articles/z1_install.html))
 
