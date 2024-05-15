@@ -49,6 +49,39 @@ Each script is standalone but designed to be run sequentially as part of the pip
 
 ## Installation
 Ensure R is installed on your machine along with the necessary packages:
+tidyverse - For data manipulation and visualization.
+ggpubr - For creating easily publishable ggplot2 plots.
+lme4 - For fitting linear mixed-effects models.
+multcomp - For conducting multiple comparisons.
+lmerTest - To provide p-values for linear mixed-effect models.
+psych - For psychological, psychometric, and personality research.
+gridExtra - For arranging multiple grid-based plots.
+colorscience - For color science calculations and transformations.
+farver - For high-performance color space manipulation.
+inti - For genetic statistics such as heritability.
+ggcorrplot - For visualizing correlation matrices.
+FactoMineR - For exploratory and multivariate data analysis.
+factoextra - For visualizing results from FactoMineR.
+EBImage - For image processing and analysis (used in image-based scripts).
+magick - For advanced image processing capabilities.
+imager - For image processing and analysis.
+foreach - For executing looping constructs.
+doParallel - For parallel computing capabilities.
+parallel - For support for parallel computation.
+randomcoloR - For generating distinct colors for data visualization.
+Rvision - For image processing and analysis, particularly in handling and analyzing image data in R.
+
+For CRAN package:
 ```R
-install.packages(c("tidyverse", "ggpubr", "lme4", "multcomp", "lmerTest", "psych", "gridExtra", "colorscience", "farver", "inti"))
+install.packages(c("BiocManager""tidyverse", "ggpubr", "lme4", "multcomp", "lmerTest", "psych", "gridExtra", "colorscience", "farver", "inti", "ggcorrplot", "FactoMineR", "factoextra", "magick", "imager", "foreach", "doParallel", "parallel", "randomcoloR"), dependencies = TRUE)
+```
+
+For Bioconducto package:
+```R
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("EBImage")
+```
+
+For Rvision: visit [RVision installing guidelines]([URL](https://swarm-lab.github.io/Rvision/articles/z1_install.html)
 
