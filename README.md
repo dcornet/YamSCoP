@@ -16,12 +16,17 @@ Outputs two csv files and two .png files :
 * [TargetB5_RGB_Lab.png](./out/CustomColorChart/TargetB5_RGB_Lab.png): Image of the created chart with color value label and patch number
 * [TargetB5.png](./out/CustomColorChart/TargetB5.png): Image of the created chart to be printed
 [Output file path](./out/CustomColorChart)
+<img src="./out/CustomColorChart/TargetB5_RGB_Lab.png" width="25%">
+This script logs its progress to the console and will report on incompatible chart size or potential issues with color picked from image (e.g. similar color based on dE2000 distance).
 
 ### 2. Get Picture Exif Information
 Extracts EXIF information from images, which is crucial for understanding the capture conditions and camera settings used during the phenotyping process.
+Ensure you have .NEF images of the desired object on your drive. Some example of yam tuber flesh images are given in the [data](./data/TuberColorSamples) repository.
+Outputs a CSV file with metadata extracted from images: [Output file path](./out/Picsmeta.csv)
 
 ### 3. Convert RAW to JPG
-Converts RAW image files to JPG format, preparing them for further processing and analysis in the pipeline.
+Converts RAW image files to JPG format, preparing them for further processing and analysis in the pipeline. It uses parallel processing to speed up the conversion of multiple images simultaneously. The script reads metadata from a previously generated CSV [file](./out/Picsmeta.csv). It expects this file to contain paths to NEF images stored in the column 'SourceFile'.
+Converted JPG images are outputed to this [directory](./out/JPGconvertedPics/). Each image is named according to its associated genotype and timestamp from the metadata.
 
 ### 4. Get Picture Color Chart
 Analyzes images to retrieve color chart data, which is used to calibrate and correct colors in phenotyping images accurately.
@@ -58,27 +63,32 @@ Each script is standalone but designed to be run sequentially as part of the pip
 
 ## Installation
 Ensure R is installed on your machine along with the necessary packages:
-* tidyverse - For data manipulation and visualization.
-* ggpubr - For creating easily publishable ggplot2 plots.
-* lme4 - For fitting linear mixed-effects models.
-* multcomp - For conducting multiple comparisons.
-* lmerTest - To provide p-values for linear mixed-effect models.
-* psych - For psychological, psychometric, and personality research.
-* gridExtra - For arranging multiple grid-based plots.
 * colorscience - For color science calculations and transformations.
-* farver - For high-performance color space manipulation.
-* inti - For genetic statistics such as heritability.
-* ggcorrplot - For visualizing correlation matrices.
-* FactoMineR - For exploratory and multivariate data analysis.
-* factoextra - For visualizing results from FactoMineR.
-* EBImage - For image processing and analysis (used in image-based scripts).
-* magick - For advanced image processing capabilities.
-* imager - For image processing and analysis.
-* foreach - For executing looping constructs.
 * doParallel - For parallel computing capabilities.
+* EBImage - For image processing and analysis (used in image-based scripts).
+* exifr - Reads EXIF data using [ExifTool](https://exiftool.org) and returns results as a data frame.
+* factoextra - For visualizing results from FactoMineR.
+* FactoMineR - For exploratory and multivariate data analysis.
+* farver - For high-performance color space manipulation.
+* foreach - For executing looping constructs.
+* ggcorrplot - For visualizing correlation matrices.
+* ggpubr - For creating easily publishable ggplot2 plots.
+* gridExtra - For arranging multiple grid-based plots.
+* imager - For image processing and analysis.
+* inti - For genetic statistics such as heritability.
+* lme4 - For fitting linear mixed-effects models.
+* lmerTest - To provide p-values for linear mixed-effect models.
+* magick - For advanced image processing capabilities.
+* multcomp - For conducting multiple comparisons.
 * parallel - For support for parallel computation.
+* psych - For psychological, psychometric, and personality research
 * randomcoloR - For generating distinct colors for data visualization.
-* Rvision - For image processing and analysis, particularly in handling and analyzing image data in R.
+* Rvision - For image processing and analysis, particularly in handling and analyzing image data in R
+* tidyverse - For data manipulation and visualization.
+
+
+
+.
 
 For CRAN package:
 ```R
