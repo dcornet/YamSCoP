@@ -3,12 +3,13 @@
 ![Pipeline](https://github.com/dcornet/YamSCoP/assets/5694013/fa2a1a0b-3288-4491-ac1b-e70c0120faeb)
 
 ## Overview
-YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate comprehensive phenotypic analysis of yams, focusing on both color and shape traits through a series of structured scripts. These scripts process raw image data, extract phenotypic information, and perform advanced statistical analysis to understand genetic variations and their implications on yam phenotypes.
+YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate comprehensive phenotypic analysis of yams, focusing on both color and shape traits through a series of structured scripts. These scripts process raw image data, extract phenotypic information, and perform advanced statistical analysis to understand genetic variations and their implications on yam phenotypes. 
+Path to some example of yam tuber flesh images : "./data/"
 
 ## Scripts Description
 
 ### 1. Create Custom Color Chart
-Generates a custom color chart from images, allowing users to select specific color ranges and create a standardized color reference for image analysis.
+Generates a custom color chart from images, allowing users to select specific color ranges and create a standardized color reference for image analysis. User can customize, the number of color patch present on the chart. A dedicated patch is always kept for pure white. 
 
 ### 2. Get Picture Exif Information
 Extracts EXIF information from images, which is crucial for understanding the capture conditions and camera settings used during the phenotyping process.
