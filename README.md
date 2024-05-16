@@ -58,9 +58,10 @@ Analyzes images to retrieve color chart data, which is used to calibrate and cor
 ```
 'min_area' and 'max_area' arguments should be adapted regardiung the image and chart respective size. It utilizes parallel processing to handle large batches of images efficiently and computes various color metrics including RGB, XYZ, and CIE Lab color values. Additionally, it compares observed color values (from chart on image) against theoretical values (measured with chromameter on the real chart). A white correction is applied following [Mendoza et al. 2006](http://dx.doi.org/10.1016/j.postharvbio.2006.04.004).   
 The script reads metadata from a CSV file located at [./out/Picsmeta.csv](./out/Picsmeta.csv) and image files from [./out/JPGconvertedPics/](./out/JPGconvertedPics/) directory.
-Outputs several files including individual patch recognition images, color comparison charts, and a comprehensive CSV file with all color data. A visualization of the patch recognition for each image is saved in [./out/PatchRecognition/](./out/PatchRecognition/):
+Outputs several files including [individual patch recognition images](./out/PatchRecognition/), [chart color comparison images](./out/ColorChartTheorVSobs/), and a comprehensive CSV file with [all color data](./out/PicsChartLab.csv):
+![PatchRecognition](https://github.com/dcornet/YamSCoP/blob/main/out/PacthRecognition/Patch_A104_120.JPG)
 
- [./out/ColorChartTheorVSobs/](./out/ColorChartTheorVSobs/) and chart color values to [./out/PicsChartLab.csv](./out/PicsChartLab.csv).
+
 
 
 <br>
