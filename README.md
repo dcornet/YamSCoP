@@ -6,7 +6,7 @@
 YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate comprehensive phenotypic analysis of yams, focusing on both color and shape traits through a series of structured scripts. These scripts process raw image data, extract phenotypic information, and perform advanced statistical analysis to understand genetic variations and their implications on yam phenotypes. 
 
 This project focuses on image analysis. For more information on image acquisition and prerequisites: 
-[<img alt="SOP1" src="https://github.com/dcornet/YamSCoP/Images/YamSCoP_SOP1.jpg" width="50%" />]([.](https://github.com/dcornet/YamSCoP/Docs/RTBfoods_H.2.2_SOP_ColorCharacterizationthroughImaging_RTBfoods_2019.pdf)
+[<img alt="SOP1" src="https://github.com/dcornet/YamSCoP/blob/main/Images/YamSCoP_SOP1.jpg" width="50%" />]([.](https://github.com/dcornet/YamSCoP/blob/main/Docs/RTBfoods_H.2.2_SOP_ColorCharacterizationthroughImaging_RTBfoods_2019.pdf)
 
 ## Scripts Description
 
