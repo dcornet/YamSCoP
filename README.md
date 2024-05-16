@@ -1,6 +1,6 @@
 # YamSCoP: Yam Shape and Color Phenotyping Pipeline
 
-![Pipeline](https://github.com/dcornet/YamSCoP/assets/5694013/fa2a1a0b-3288-4491-ac1b-e70c0120faeb)  
+![Pipeline](https://github.com/dcornet/YamSCoP/blob/main/Images/YamSCoP_Pipeline.jpg)  
 
 ## Table of Contents
 - [Overview](#overview)
