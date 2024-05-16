@@ -48,8 +48,20 @@ Converted JPG images are outputed to this [directory](./out/JPGconvertedPics/). 
 <br>
 
 ### 4. Get Picture Color Chart
-Analyzes images to retrieve color chart data, which is used to calibrate and correct colors in phenotyping images accurately.
-simpleBlobDetector XXXXXXXXXX
+Analyzes images to retrieve color chart data, which is used to calibrate and correct colors in phenotyping images accurately. Color patch are detected using the simpleBlobDetector function of Rvision package:
+```R
+   patch<-Rvision::simpleBlobDetector(
+     img, 50, 220, 10, 2, 10, filter_by_area=T, min_area=3000, max_area=10000, 
+     filter_by_color=F, filter_by_circularity=T, min_circularity=0.6, max_circularity=1,
+     filter_by_convexity=F, filter_by_inertia=T
+   )
+```
+'min_area' and 'max_area' arguments should be adapted regardiung the image and chart respective size. It utilizes parallel processing to handle large batches of images efficiently and computes various color metrics including RGB, XYZ, and CIE Lab color values. Additionally, it compares observed color values (from chart on image) against theoretical values (measured with chromameter on the real chart). A white correction is applied following [Mendoza et al. 2006](http://dx.doi.org/10.1016/j.postharvbio.2006.04.004).   
+The script reads metadata from a CSV file located at [./out/Picsmeta.csv](./out/Picsmeta.csv) and image files from [./out/JPGconvertedPics/](./out/JPGconvertedPics/) directory.
+Outputs several files including individual patch recognition images, color comparison charts, and a comprehensive CSV file with all color data. A visualization of the patch recognition for each image is saved in [./out/PatchRecognition/](./out/PatchRecognition/):
+
+ [./out/ColorChartTheorVSobs/](./out/ColorChartTheorVSobs/) and chart color values to [./out/PicsChartLab.csv](./out/PicsChartLab.csv).
+
 
 <br>
 
