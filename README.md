@@ -65,10 +65,12 @@ Outputs several files including [individual patch recognition images](./out/Patc
 <br>
 
 ### 5. Get Chart Delta E 2000
-Calculates the Delta E 2000 color difference values (dE2000) from the color charts between images (repeatability) and against real chart value measured using chromamater (accuracy). This script calculates the dE2000 color difference betweentheoretical and observed color values from color patches (before and after white correction). It generates visual representations of these differences and assesses variation across multiple measurements. The script handles large data sets and uses advanced color science techniques to provide accurate and detailed color analysis. The script reads processed color data from [./out/PicsChartLab.csv](./out/PicsChartLab.csv) and theoretical values from [./data/ColorChartTheoreticalValues.csv](./data/ColorChartTheoreticalValues.csv). Outputs include PNG files visualizing the [dE2000 differences](./out/):
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/ColorChartTheorVSobs/A104_120.png" width="300">
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/ColorChartTheorVSobs/A104_120.png" width="300">
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/ColorChartTheorVSobs/A104_120.png" width="300">
+Calculates the Delta E 2000 color difference values (dE2000) from the color charts between images (repeatability) and against real chart value measured using chromamater (accuracy). This script calculates the dE2000 color difference betweentheoretical and observed color values from color patches (before and after white correction). It generates visual representations of these differences and assesses variation across multiple measurements. The script handles large data sets and uses advanced color science techniques to provide accurate and detailed color analysis. The script reads processed color data from [./out/PicsChartLab.csv](./out/PicsChartLab.csv) and theoretical values from [./data/ColorChartTheoreticalValues.csv](./data/ColorChartTheoreticalValues.csv). Outputs include PNG files visualizing the [dE2000 differences](./out/).  
+*Repeatability:*
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/dE_BetweenPics.png" width="900">  
+*Accuracy: Color differences between image and chart theoretical value by color patch, with (orange) and without white correction (purple)*
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/dE_ObsTheoWC.png" width="900">  
+
 Also, detailed data comparisons are saved as .RDS for further analysis.
 The table below explains how different Delta E values relate to human color perception.
 
