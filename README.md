@@ -60,14 +60,16 @@ Analyzes images to retrieve color chart data, which is used to calibrate and cor
 The script reads metadata from a CSV file located at [./out/Picsmeta.csv](./out/Picsmeta.csv) and image files from [./out/JPGconvertedPics/](./out/JPGconvertedPics/) directory.
 Outputs several files including [individual patch recognition images](./out/PatchRecognition/), [chart color comparison images](./out/ColorChartTheorVSobs/), and a comprehensive CSV file with [all color data](./out/PicsChartLab.csv):
 <img src="https://github.com/dcornet/YamSCoP/blob/main/out/PacthRecognition/Patch_A104_120.JPG" width="600">
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PacthRecognition/Patch_A104_120.JPG" width="300">
-
-
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/ColorChartTheorVSobs/A104_120.png" width="300">
 
 <br>
 
 ### 5. Get Chart Delta E 2000
-Calculates the Delta E 2000 color difference values from the color charts within images, providing a measure of color accuracy and consistency.
+Calculates the Delta E 2000 color difference values (dE2000) from the color charts between images (repeatability) and against real chart value measured using chromamater (accuracy). This script calculates the dE2000 color difference betweentheoretical and observed color values from color patches (before and after white correction). It generates visual representations of these differences and assesses variation across multiple measurements. The script handles large data sets and uses advanced color science techniques to provide accurate and detailed color analysis. The script reads processed color data from [./out/PicsChartLab.csv](./out/PicsChartLab.csv) and theoretical values from [./data/ColorChartTheoreticalValues.csv](./data/ColorChartTheoreticalValues.csv). Outputs include PNG files visualizing the [dE2000 differences](./out/):
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/ColorChartTheorVSobs/A104_120.png" width="300">
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/ColorChartTheorVSobs/A104_120.png" width="300">
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/ColorChartTheorVSobs/A104_120.png" width="300">
+Also, detailed data comparisons are saved as .RDS for further analysis.
 The table below explains how different Delta E values relate to human color perception.
 
 | Delta E | Perception                              |
@@ -77,6 +79,7 @@ The table below explains how different Delta E values relate to human color perc
 | 2 - 10  | Perceptible at a glance.                 |
 | 11 - 49 | Colors are more similar than opposite.   |
 | 100     | Colors are exact opposite.               |
+
 <br>
 
 ### 6. Get White Corrected Pictures
