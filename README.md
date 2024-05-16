@@ -101,7 +101,19 @@ The script handles large image files and generates substantial data, requiring s
 <br>
 
 ### 9. Get Color Indices
-Calculates various color indices from the tuber color data, providing detailed insights into the color traits of different yam varieties.
+Calculates various color indices from the tuber color data, providing detailed insights into the color traits of different yam varieties. This script is designed to calculate and analyze various color indices from tuber images. It converts RGB color values to different color spaces and calculates several indices including whiteness and yellowness. The script further examines the changes in these indices over time and across different genotypes, and conducts statistical analysis including correlation matrices and principal component analysis (PCA) to explore the relationships between the different color traits. Color data for tubers are loaded from [./out/TuberColors.RDS](./out/TuberColors.RDS), which includes segmented image data with RGB values for different tuber sections. 
+The script outputs various graphical representations of the color indices analysis, including line plots of color indices over time, bar plots comparing color indices, and correlation matrices. 
+
+| Index | Equation | Reference |
+|---------|---------|------------------------------------------|
+| Whiteness index | $$WI_{Croes} = L - 3b$$ | [Croes 1961](https://www.cerealsgrains.org/publications/cc/backissues/1961/Documents/chem38_8.pdf) |
+| Whiteness index | $$WI_{Judd}  = 100 - \sqrt{(100 - L)^2 + a^2 + b^2}$$ | [Judd and Wyszecki 1963; *In* Hirschler 2012](https://www.researchgate.net/file.PostFileLoader.html?id=562c1fc85f7f715b228b4577&assetKey=AS:288236296523776@1445732296739) |
+| Whiteness index | $$WI_{Hunter} = L - 3b$$ | [Hunter 1960](https://opg.optica.org/josa/abstract.cfm?URI=josa-50-1-44) |
+| Yam purpelness index | $$Hue = 180 + \frac{\arctan(\frac{b}{a}) \cdot 180}{\pi} \text{  if } a < 0 \quad \text{else} \quad \frac{\arctan(\frac{b}{a}) \cdot 180}{\pi}$$ | [Jouhar et al. 2022](https://www.mdpi.com/2076-3417/12/14/6841) |
+| Yellowness index| $$YI = \frac{142.86b}{L}$$ | [Francis and Clydesdale 1975; *In* Hirschler 2012](https://www.researchgate.net/file.PostFileLoader.html?id=562c1fc85f7f715b228b4577&assetKey=AS:288236296523776@1445732296739) |
+| Browness index | $$BI = 100 \cdot \frac{X - 0.31}{0.172} \quad \text{where} \quad X = \frac{a + 1.75L}{5.645L + a - 3.012b}$$ | [Buera et al. 1985; *In* Hirschler 2012](https://www.researchgate.net/file.PostFileLoader.html?id=562c1fc85f7f715b228b4577&assetKey=AS:288236296523776@1445732296739) | 
+
+Additionally, PCA results are visualized to identify the principal components of color variation. All outputs are saved to [./out/](./out/) directory:
 
 <br>
 
