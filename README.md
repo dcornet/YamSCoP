@@ -95,7 +95,8 @@ Genotype tuber sgmentation mask is kept in a .RDS file for later analysis. Detai
 <br>
 
 ### 8. Get Tuber Color Matrix
-Extracts color data from tuber segments and compiles this into a matrix format for statistical analysis.
+Extracts color data from tuber segments and compiles this into a matrix format for further statistical analysis. This script processes a series of JPEG images from multiple genotypes of tubers to analyze and extract color data. It applies image segmentation masks and resizes images for standardized processing. The script operates in batches, handling images by genotype and time, and compiles color data into a large dataset. Images are loaded from [./out/WhiteCorrected/](./out/WhiteCorrected/) with metadata from [./out/Picsmeta.csv](./out/Picsmeta.csv). Image segmentation masks are read from [./out/InitTuberMask.RDS](./out/InitTuberMask.RDS). Outputs color data for each segmented tuber pixel into [./out/TuberColors.RDS](./out/TuberColors.RDS). Each entry includes the RGB color values and related metadata for the segmented areas.
+The script handles large image files and generates substantial data, requiring significant memory and processing power. Ensure adequate system resources are available before running.  
 
 <br>
 
