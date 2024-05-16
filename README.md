@@ -25,16 +25,24 @@
 <br>
 
 ## Overview
-YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate comprehensive phenotypic analysis of yams, focusing on both color and shape traits through a series of structured scripts. These scripts process raw image data, extract phenotypic information, and perform advanced statistical analysis to understand genetic variations and their implications on yam phenotypes.    
-This project focuses on image analysis. For more information on image acquisition and prerequisites: 
+YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate comprehensive phenotypic analysis of yams, focusing on both color and shape traits through a series of structured scripts. These scripts process raw image data, extract phenotypic information, and perform advanced statistical analysis to understand genetic variations and their implications on yam phenotypes. This project focuses on image analysis. For more information on image acquisition and prerequisites report to the following standard operating protocole: 
 <a href="https://github.com/dcornet/YamSCoP/blob/main/Docs/RTBfoods_H.2.2_SOP_Color%20Characterization%20through%20Imaging_RTB%20foods_2019.pdf">
   <img src="https://github.com/dcornet/YamSCoP/blob/main/Images/YamSCoP_SOP1.jpg" alt="SOP1" width="600" />
 </a>  
 
 <br>
 
-## Context
-project + example
+### Projects
+This work was developed as part of two projects funded by the bill and melinda gates foundation: 
+* [RTB Foods](https://rtbfoods.cirad.fr/): to encourage a better choice of root, tuber and banana varieties in Africa. The RTBfoods project (Breeding RTB Products for End User Preferences) aims to identify the quality traits that determine the adoption of new root, tuber and banana (RTB) varieties developed by breeders in five African countries (Benin, Cameroon, Côte d'Ivoire, Nigeria and Uganda). Project start date: 01/11/2017 Project end date: 31/10/2022
+* [AfricaYam](https://africayamphase2.com/): This IITA-led aims at increasing yam productivity whilst reducing production costs and environmental impact by developing and deploying end-user preferred varieties with higher yield, greater resistance to pests and diseases and improved quality. This project involves a network of research organizations in the four main producer countries of the yam belt: the National Root Crops Research Institute (NRCRI) and the Ebonyi State University (EBSU) in Nigeria; two research institutes under the Council for Scientific and Industrial Research (CSIR) in Ghana (the Crops Research Institute and the Savanna Agricultural Research Institute; the Centre National de Recherche Agronomique (CNRA), Côte d'Ivoire; and the Université d'Abomey-Calavi (UAC), Dassa Center, Benin.  
+
+<br>
+
+
+### Running example
+In order to support the understanding of the analysis pipeline, 
+
 
 ## Scripts Description  
 ### 1. Create Custom Color Chart
