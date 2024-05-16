@@ -59,8 +59,8 @@ Analyzes images to retrieve color chart data, which is used to calibrate and cor
 'min_area' and 'max_area' arguments should be adapted regardiung the image and chart respective size. It utilizes parallel processing to handle large batches of images efficiently and computes various color metrics including RGB, XYZ, and CIE Lab color values. Additionally, it compares observed color values (from chart on image) against theoretical values (measured with chromameter on the real chart). A white correction is applied following [Mendoza et al. 2006](http://dx.doi.org/10.1016/j.postharvbio.2006.04.004).   
 The script reads metadata from a CSV file located at [./out/Picsmeta.csv](./out/Picsmeta.csv) and image files from [./out/JPGconvertedPics/](./out/JPGconvertedPics/) directory.
 Outputs several files including [individual patch recognition images](./out/PatchRecognition/), [chart color comparison images](./out/ColorChartTheorVSobs/), and a comprehensive CSV file with [all color data](./out/PicsChartLab.csv):
-![PatchRecognition](https://github.com/dcornet/YamSCoP/blob/main/out/PacthRecognition/Patch_A104_120.JPG)
-
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PacthRecognition/Patch_A104_120.JPG" width="600">
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PacthRecognition/Patch_A104_120.JPG" width="300">
 
 
 
@@ -68,7 +68,15 @@ Outputs several files including [individual patch recognition images](./out/Patc
 
 ### 5. Get Chart Delta E 2000
 Calculates the Delta E 2000 color difference values from the color charts within images, providing a measure of color accuracy and consistency.
+The table below explains how different Delta E values relate to human color perception.
 
+| Delta E | Perception                              |
+|---------|------------------------------------------|
+| <= 1.0  | Not perceptible by human eyes.           |
+| 1 - 2   | Perceptible through close observation.   |
+| 2 - 10  | Perceptible at a glance.                 |
+| 11 - 49 | Colors are more similar than opposite.   |
+| 100     | Colors are exact opposite.               |
 <br>
 
 ### 6. Get White Corrected Pictures
