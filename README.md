@@ -6,8 +6,8 @@
 
 ## Table of Contents
 - [Overview](#overview)
-  - [Overview](#Overview)
   - [Projects](#Projects)
+  - [Running example](#Running-example)  
 - [Scripts Description](#scripts-description)
   - [1. Create Custom Color Chart](#1-create-custom-color-chart)
   - [2. Get Picture Exif Information](#2-get-picture-exif-information)
