@@ -3,7 +3,6 @@
 ![Pipeline](https://github.com/dcornet/YamSCoP/assets/5694013/fa2a1a0b-3288-4491-ac1b-e70c0120faeb)  
 
 ## Table of Contents
-- [Pipeline](#pipeline)
 - [Overview](#overview)
 - [Context](#context)
 - [Scripts Description](#scripts-description)
@@ -20,6 +19,8 @@
   - [11. Example of genotypes post-hoc comparison for yellowness](#11-example-of-genotypes-post-hoc-comparison-for-yellowness)
 - [Usage](#usage)
 - [Installation](#installation)  
+
+<br>
 
 ## Overview
 YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate comprehensive phenotypic analysis of yams, focusing on both color and shape traits through a series of structured scripts. These scripts process raw image data, extract phenotypic information, and perform advanced statistical analysis to understand genetic variations and their implications on yam phenotypes.    
