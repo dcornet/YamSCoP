@@ -122,10 +122,9 @@ The script outputs various graphical representations of the color indices analys
 
 Additionally, relationships between variables can be studied using correlation plot or PCA:
 
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/CorPlot_ColorIndicesMeanSD%26diff.png" width="700">  
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/CorPlot_ColorIndicesMeanSD%26diff.png" width="800">  
 
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCABiplot_ColorIndicesMeanSD%26diff.png" width="350">
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCA_ColorIndicesMeanSD%26diff.png" width="350">  
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCABiplot_ColorIndicesMeanSD%26diff.png" width="400"> <img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCA_ColorIndicesMeanSD%26diff.png" width="400">  
 
 <br>
 
