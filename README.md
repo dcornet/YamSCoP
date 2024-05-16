@@ -7,9 +7,10 @@ YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate com
 
 This project focuses on image analysis. For more information on image acquisition and prerequisites: 
 [<img alt="SOP1" src="https://github.com/dcornet/YamSCoP/blob/main/Images/YamSCoP_SOP1.jpg" width="50%" />]([.](https://github.com/dcornet/YamSCoP/blob/main/Docs/RTBfoods_H.2.2_SOP_ColorCharacterizationthroughImaging_RTBfoods_2019.pdf)
-
+  
 ## Scripts Description
 
+    
 ### 1. Create Custom Color Chart
 Generates a custom color chart from images, allowing users to select specific color ranges and create a standardized color reference for image analysis. User can customize, the number of color patch present on the chart. A dedicated patch is always kept for pure white. Some example of yam tuber flesh images are given in the [data](./data) repository.
 Outputs two csv files and two .png files :
