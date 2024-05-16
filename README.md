@@ -1,16 +1,17 @@
 # YamSCoP: Yam Shape and Color Phenotyping Pipeline
 
-![Pipeline](https://github.com/dcornet/YamSCoP/assets/5694013/fa2a1a0b-3288-4491-ac1b-e70c0120faeb)
+![Pipeline](https://github.com/dcornet/YamSCoP/assets/5694013/fa2a1a0b-3288-4491-ac1b-e70c0120faeb)  
 
 ## Overview
-YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate comprehensive phenotypic analysis of yams, focusing on both color and shape traits through a series of structured scripts. These scripts process raw image data, extract phenotypic information, and perform advanced statistical analysis to understand genetic variations and their implications on yam phenotypes. 
-
+YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate comprehensive phenotypic analysis of yams, focusing on both color and shape traits through a series of structured scripts. These scripts process raw image data, extract phenotypic information, and perform advanced statistical analysis to understand genetic variations and their implications on yam phenotypes.    
 This project focuses on image analysis. For more information on image acquisition and prerequisites: 
-[<img alt="SOP1" src="https://github.com/dcornet/YamSCoP/blob/main/Images/YamSCoP_SOP1.jpg" width="50%" />]([.](https://github.com/dcornet/YamSCoP/blob/main/Docs/RTBfoods_H.2.2_SOP_ColorCharacterizationthroughImaging_RTBfoods_2019.pdf)
-  
-## Scripts Description
+<a href="https://github.com/dcornet/YamSCoP/blob/main/Docs/RTBfoods_H.2.2_SOP_Color%20Characterization%20through%20Imaging_RTB%20foods_2019.pdf">
+  <img src="https://github.com/dcornet/YamSCoP/blob/main/Images/YamSCoP_SOP1.jpg" alt="SOP1" width="600" />
+</a>  
 
-    
+<br>
+
+## Scripts Description  
 ### 1. Create Custom Color Chart
 Generates a custom color chart from images, allowing users to select specific color ranges and create a standardized color reference for image analysis. User can customize, the number of color patch present on the chart. A dedicated patch is always kept for pure white. Some example of yam tuber flesh images are given in the [data](./data) repository.
 Outputs two csv files and two .png files :
@@ -20,50 +21,88 @@ Outputs two csv files and two .png files :
 * [TargetB5.png](./out/CustomColorChart/TargetB5.png): Image of the created chart to be printed
 [Output file path](./out/CustomColorChart)
 <img src="./out/CustomColorChart/TargetB5_RGB_Lab.png" width="25%">
-This script logs its progress to the console and will report on incompatible chart size or potential issues with color picked from image (e.g. similar color based on dE2000 distance).
+<p>This script logs its progress to the console and will report on incompatible chart size or potential issues with color picked from image (e.g. similar color based on dE2000 distance).</p>
+
+<br>
 
 ### 2. Get Picture Exif Information
 Extracts EXIF information from images, which is crucial for understanding the capture conditions and camera settings used during the phenotyping process.
-Ensure you have .NEF images of the desired object on your drive. Some example of yam tuber flesh images are given in the [data](./data/TuberColorSamples) repository.
-Outputs a CSV file with metadata extracted from images: [Output file path](./out/Picsmeta.csv)
+Ensure you have .NEF images of the desired object on your drive (if not, change the exstension). Some example of yam tuber flesh images are given in the [data](./data/TuberColorSamples) repository.
+Outputs a CSV file with metadata extracted from images: [Output file path](./out/Picsmeta.csv) 
+
+<br>
 
 ### 3. Convert RAW to JPG
-Converts RAW image files to JPG format, preparing them for further processing and analysis in the pipeline. It uses parallel processing to speed up the conversion of multiple images simultaneously. The script reads metadata from a previously generated CSV [file](./out/Picsmeta.csv). It expects this file to contain paths to NEF images stored in the column 'SourceFile'.
-Converted JPG images are outputed to this [directory](./out/JPGconvertedPics/). Each image is named according to its associated genotype and timestamp from the metadata.
+Converts RAW image files to JPG format, preparing them for further processing and analysis in the pipeline. It uses parallel processing to speed up the conversion of multiple images simultaneously. The script reads metadata from a previously generated CSV [file](./out/Picsmeta.csv). It expects this file to contain paths to NEF images stored in the column 'SourceFile'. 
+In order to speed up the subsequent processing of images, for example, the .NEF image is resized before being converted to .JPG: 
+```R
+  raw_image <- image_read(img)
+  resized_image <- image_resize(raw_image, "1400x")
+```
+However, it is preferable to average the colour indices rather than calculating the index from the average of the colour values. This is why, for best results, it is recommended to maintain the quality of the image throughout the analysis without resizing it. The same applies when converting to .JPG, where lossless compression can be imposed using the quality argument:
+```R
+  image_write(resized_image, path = output_path, format = "jpg", quality=100) 
+```
+Converted JPG images are outputed to this [directory](./out/JPGconvertedPics/). Each image is named according to its associated genotype and timestamp from the metadata.  
+
+<br>
 
 ### 4. Get Picture Color Chart
 Analyzes images to retrieve color chart data, which is used to calibrate and correct colors in phenotyping images accurately.
 simpleBlobDetector XXXXXXXXXX
 
+<br>
+
 ### 5. Get Chart Delta E 2000
 Calculates the Delta E 2000 color difference values from the color charts within images, providing a measure of color accuracy and consistency.
+
+<br>
 
 ### 6. Get White Corrected Pictures
 Applies white balancing to images based on color chart data, ensuring that colors are represented accurately in images before analysis.
 
+<br>
+
 ### 7. Get Initial Tuber Mask
 Creates initial segmentation masks for tubers in images, which are used to isolate and analyze specific tuber regions in subsequent scripts.
+
+<br>
 
 ### 8. Get Tuber Color Matrix
 Extracts color data from tuber segments and compiles this into a matrix format for statistical analysis.
 
+<br>
+
 ### 9. Get Color Indices
 Calculates various color indices from the tuber color data, providing detailed insights into the color traits of different yam varieties.
+
+<br>
 
 ### 10. Compare Genotypes
 Performs statistical comparisons between different yam genotypes based on the extracted color indices, helping to highlight phenotypic differences driven by genetic variation.
 
+<br>
+
+
 ### 11. Get Index Heritability
 Estimates the heritability of various color indices, providing insights into the genetic control over these traits in yams.
+
+<br>
 
 ### 12. Identify Best Timing
 Determines the optimal timing for phenotyping based on developmental stages or environmental conditions to ensure consistent and reliable data.
 
+<br>
+
 ### 13. Basic Shape Characterization
 Analyzes basic shape parameters of yams using image processing techniques to quantify morphological traits that are critical for breed characterization and selection.
 
+<br>
+
 ## Usage
 Each script is standalone but designed to be run sequentially as part of the pipeline. Detailed instructions on how to execute each script can be found at the top of the script files.
+
+<br>
 
 ## Installation
 Ensure R is installed on your machine along with the necessary packages:
@@ -90,9 +129,7 @@ Ensure R is installed on your machine along with the necessary packages:
 * Rvision - For image processing and analysis, particularly in handling and analyzing image data in R
 * tidyverse - For data manipulation and visualization.
 
-
-
-.
+<br>
 
 For CRAN package:
 ```R
