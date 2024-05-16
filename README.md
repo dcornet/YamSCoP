@@ -2,6 +2,8 @@
 
 ![Pipeline](https://github.com/dcornet/YamSCoP/blob/main/Images/YamSCoP_Pipeline.jpg)  
 
+<br>
+
 ## Table of Contents
 - [Overview](#overview)
 - [Context](#context)
