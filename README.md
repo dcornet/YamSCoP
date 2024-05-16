@@ -83,12 +83,14 @@ In order to interpret results, the table below explains how different Delta E va
 <br>
 
 ### 6. Get White Corrected Pictures
-Applies white balancing to images based on color chart data, ensuring that colors are represented accurately in images before analysis.
+Applies white balancing to images based on color chart data, ensuring that colors are represented accurately in images before analysis. The applied white correction follow [Mendoza et al. 2006](http://dx.doi.org/10.1016/j.postharvbio.2006.04.004).It utilizes color science transformations to convert image colors from RGB to XYZ to Lab and back, applying white balance correction with reference white values derived from theoretical color charts and observed image data. Images are read from [./out/JPGconvertedPics/](./out/JPGconvertedPics/) and color data from [./out/Picsmeta.csv](./out/Picsmeta.csv). Theoretical color values are read from [./data/ColorChartTheoreticalValues.csv](./data/ColorChartTheoreticalValues.csv). Outputs corrected images into [./out/WhiteCorrected/](./out/WhiteCorrected/).  
 
 <br>
 
 ### 7. Get Initial Tuber Mask
-Creates initial segmentation masks for tubers in images, which are used to isolate and analyze specific tuber regions in subsequent scripts.
+Creates initial segmentation masks for tubers in images, which are used to isolate and analyze specific tuber regions in subsequent scripts. It processes a series of JPEG images to segment tubers based on color and shape parameters. It utilizes image processing techniques to binarize, denoise, and segment images, extracting shape features for further analysis and keeping segmentation mask for each genotype to be applied later on further image from the same time series. Images are read from [./out/WhiteCorrected/](./out/WhiteCorrected/) and metadata from [./out/Picsmeta.csv](./out/Picsmeta.csv). 
+Genotype tuber sgmentation mask is kept in a .RDS file for later analysis. Detailed shape parameters are saved to [./out/BasicShapeParams.csv](./out/BasicShapeParams.csv). Outputs include segmented images and shape parameters results saved in [./out/TuberSegmentation/](./out/TuberSegmentation/):
+
 
 <br>
 
