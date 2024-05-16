@@ -90,7 +90,7 @@ Applies white balancing to images based on color chart data, ensuring that color
 ### 7. Get Initial Tuber Mask
 Creates initial segmentation masks for tubers in images, which are used to isolate and analyze specific tuber regions in subsequent scripts. It processes a series of JPEG images to segment tubers based on color and shape parameters. It utilizes image processing techniques to binarize, denoise, and segment images, extracting shape features for further analysis and keeping segmentation mask for each genotype to be applied later on further image from the same time series. Images are read from [./out/WhiteCorrected/](./out/WhiteCorrected/) and metadata from [./out/Picsmeta.csv](./out/Picsmeta.csv). 
 Genotype tuber sgmentation mask is kept in a .RDS file for later analysis. Detailed shape parameters are saved to [./out/BasicShapeParams.csv](./out/BasicShapeParams.csv). Outputs include segmented images and shape parameters results saved in [./out/TuberSegmentation/](./out/TuberSegmentation/):
-
+<img src="https://github.com/dcornet/YamSCoP/blob/main/Images/YamSCoP_Segmentation.jpg" width="900">
 
 <br>
 
