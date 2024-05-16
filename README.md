@@ -102,8 +102,7 @@ The script handles large image files and generates substantial data, requiring s
 
 ### 9. Get Color Indices
 Calculates various color indices from the tuber color data, providing detailed insights into the color traits of different yam varieties. This script is designed to calculate and analyze various color indices from tuber images. It converts RGB color values to different color spaces and calculates several indices including whiteness and yellowness. The script further examines the changes in these indices over time and across different genotypes, and conducts statistical analysis including correlation matrices and principal component analysis (PCA) to explore the relationships between the different color traits. Color data for tubers are loaded from [./out/TuberColors.RDS](./out/TuberColors.RDS), which includes segmented image data with RGB values for different tuber sections. 
-The script outputs various graphical representations of the color indices analysis, including line plots of color indices over time, bar plots comparing color indices, and correlation matrices. 
-
+Available color indices:
 | Index | Equation | Reference |
 |---------|---------|------------------------------------------|
 | Whiteness index | $$WI_{Croes} = L - 3b$$ | [Croes 1961](https://www.cerealsgrains.org/publications/cc/backissues/1961/Documents/chem38_8.pdf) |
@@ -113,9 +112,15 @@ The script outputs various graphical representations of the color indices analys
 | Yellowness index| $$YI = \frac{142.86b}{L}$$ | [Francis and Clydesdale 1975; *In* Hirschler 2012](https://www.researchgate.net/file.PostFileLoader.html?id=562c1fc85f7f715b228b4577&assetKey=AS:288236296523776@1445732296739) |
 | Browness index | $$BI = 100 \cdot \frac{X - 0.31}{0.172} \quad \text{where} \quad X = \frac{a + 1.75L}{5.645L + a - 3.012b}$$ | [Buera et al. 1985; *In* Hirschler 2012](https://www.researchgate.net/file.PostFileLoader.html?id=562c1fc85f7f715b228b4577&assetKey=AS:288236296523776@1445732296739) | 
 
+The script outputs various graphical representations of the color indices analysis, including line plots of color indices over time, bar plots comparing color indices, and correlation matrices: 
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/LinePlot_ColorIndicesOverTimeByGenotype.png" width="900">  
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/BarPlot_ColorIndicesMeanSD&diffByGenotype.png" width="900"> 
+
 Additionally, PCA results are visualized to identify the principal components of color variation. All outputs are saved to [./out/](./out/) directory:
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out//PCABiplot_ColorIndicesMeanSD&diff.png" width="450">
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCAvar_ColorIndicesMeanSD&diff.png" width="450">
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/CorPlot_ColorIndicesMeanSD%26diff.png" width="700">
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCABiplot_ColorIndicesMeanSD%26diff.png" width="450">
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCA_ColorIndicesMeanSD%26diff.png" width="450">
+
 <br>
 
 ### 10. Compare Genotypes
