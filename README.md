@@ -1,4 +1,4 @@
-# YamSCoP: Yam Shape and Color Phenotyping Pipeline
+# YamSCoP: Yam tuber Shape and Color Phenotyping Pipeline
 
 ![Pipeline](https://github.com/dcornet/YamSCoP/blob/main/Images/YamSCoP_Pipeline.jpg)  
 
