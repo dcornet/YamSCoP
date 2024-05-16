@@ -128,26 +128,21 @@ Additionally, relationships between variables can be studied using correlation p
 
 <br>
 
-### 10. Compare Genotypes
+### 10. Basic Shape Characterization
+Analyzes basic shape parameters of yams using image processing techniques to quantify morphological traits that are critical for breed characterization and selection.
+This script analyzes the shape parameters of tubers from digitized image data. It adjusts raw measurements for pixel resolution to derive real-world dimensions in millimeters and square centimeters. The script performs statistical comparisons of these shape parameters across different tuber genotypes, using box plots to visually represent variations and conducting post-hoc tests to identify statistically significant differences.
+Processes shape data from [./out/BasicShapeParams.csv](./out/BasicShapeParams.csv), which contains various geometric measurements derived from image analysis.
+Produces box plots saved as PNG files in './out/', comparing different shape traits across genotypes. The plots include statistical annotations to highlight significant differences:  
+
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_ShapeParamByGenotype.png" width="800">  
+
+<br>
+
+### 11. Example of genotypes post-hoc comparison
 Performs statistical comparisons between different yam genotypes based on the extracted color indices, helping to highlight phenotypic differences driven by genetic variation.
 
 <br>
 
-
-### 11. Get Index Heritability
-Estimates the heritability of various color indices, providing insights into the genetic control over these traits in yams.
-
-<br>
-
-### 12. Identify Best Timing
-Determines the optimal timing for phenotyping based on developmental stages or environmental conditions to ensure consistent and reliable data.
-
-<br>
-
-### 13. Basic Shape Characterization
-Analyzes basic shape parameters of yams using image processing techniques to quantify morphological traits that are critical for breed characterization and selection.
-
-<br>
 
 ## Usage
 Each script is standalone but designed to be run sequentially as part of the pipeline. Detailed instructions on how to execute each script can be found at the top of the script files.
