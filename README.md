@@ -11,6 +11,9 @@ This project focuses on image analysis. For more information on image acquisitio
 
 <br>
 
+## Context
+project + example
+
 ## Scripts Description  
 ### 1. Create Custom Color Chart
 Generates a custom color chart from images, allowing users to select specific color ranges and create a standardized color reference for image analysis. User can customize, the number of color patch present on the chart. A dedicated patch is always kept for pure white. Some example of yam tuber flesh images are given in the [data](./data) repository.
@@ -112,14 +115,17 @@ Available color indices:
 | Yellowness index| $$YI = \frac{142.86b}{L}$$ | [Francis and Clydesdale 1975; *In* Hirschler 2012](https://www.researchgate.net/file.PostFileLoader.html?id=562c1fc85f7f715b228b4577&assetKey=AS:288236296523776@1445732296739) |
 | Browness index | $$BI = 100 \cdot \frac{X - 0.31}{0.172} \quad \text{where} \quad X = \frac{a + 1.75L}{5.645L + a - 3.012b}$$ | [Buera et al. 1985; *In* Hirschler 2012](https://www.researchgate.net/file.PostFileLoader.html?id=562c1fc85f7f715b228b4577&assetKey=AS:288236296523776@1445732296739) | 
 
-The script outputs various graphical representations of the color indices analysis, including line plots of color indices over time, bar plots comparing color indices, and correlation matrices: 
+The script outputs various graphical representations of the color indices analysis, including line plots of color indices over time, bar plots comparing color indices, and correlation matrices. The following two plots illustrate respectively the evolution of color indices over time by genotype and tuber, and the average value of color indices over the three tubers at initial and final observation time and the evolution between these two timestamp (i.e. the slope or the difference): 
 <img src="https://github.com/dcornet/YamSCoP/blob/main/out/LinePlot_ColorIndicesOverTimeByGenotype.png" width="900">  
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/BarPlot_ColorIndicesMeanSD&diffByGenotype.png" width="900"> 
 
-Additionally, PCA results are visualized to identify the principal components of color variation. All outputs are saved to [./out/](./out/) directory:
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/CorPlot_ColorIndicesMeanSD%26diff.png" width="700">
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCABiplot_ColorIndicesMeanSD%26diff.png" width="450">
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCA_ColorIndicesMeanSD%26diff.png" width="450">
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/BarPlot_ColorIndicesMeanSD%26diffByGenotype.png" width="700">  
+
+Additionally, relationships between variables can be studied using correlation plot or PCA:
+
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/CorPlot_ColorIndicesMeanSD%26diff.png" width="700">  
+
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCABiplot_ColorIndicesMeanSD%26diff.png" width="350">
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCA_ColorIndicesMeanSD%26diff.png" width="350">  
 
 <br>
 
