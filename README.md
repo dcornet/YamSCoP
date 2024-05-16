@@ -114,7 +114,8 @@ The script outputs various graphical representations of the color indices analys
 | Browness index | $$BI = 100 \cdot \frac{X - 0.31}{0.172} \quad \text{where} \quad X = \frac{a + 1.75L}{5.645L + a - 3.012b}$$ | [Buera et al. 1985; *In* Hirschler 2012](https://www.researchgate.net/file.PostFileLoader.html?id=562c1fc85f7f715b228b4577&assetKey=AS:288236296523776@1445732296739) | 
 
 Additionally, PCA results are visualized to identify the principal components of color variation. All outputs are saved to [./out/](./out/) directory:
-
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out//PCABiplot_ColorIndicesMeanSD&diff.png" width="450">
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/PCAvar_ColorIndicesMeanSD&diff.png" width="450">
 <br>
 
 ### 10. Compare Genotypes
