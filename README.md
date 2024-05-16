@@ -36,9 +36,9 @@ YamSCoP (Yam Shape and Color Phenotyping Pipeline) is designed to facilitate com
 This work was developed as part of two projects funded by the bill and melinda gates foundation: 
 * [RTB Foods](https://rtbfoods.cirad.fr/): to encourage a better choice of root, tuber and banana varieties in Africa. The RTBfoods project (Breeding RTB Products for End User Preferences) aims to identify the quality traits that determine the adoption of new root, tuber and banana (RTB) varieties developed by breeders in five African countries (Benin, Cameroon, Côte d'Ivoire, Nigeria and Uganda). Project start date: 01/11/2017 Project end date: 31/10/2022
 * [AfricaYam](https://africayamphase2.com/): This IITA-led aims at increasing yam productivity whilst reducing production costs and environmental impact by developing and deploying end-user preferred varieties with higher yield, greater resistance to pests and diseases and improved quality. This project involves a network of research organizations in the four main producer countries of the yam belt: the National Root Crops Research Institute (NRCRI) and the Ebonyi State University (EBSU) in Nigeria; two research institutes under the Council for Scientific and Industrial Research (CSIR) in Ghana (the Crops Research Institute and the Savanna Agricultural Research Institute; the Centre National de Recherche Agronomique (CNRA), Côte d'Ivoire; and the Université d'Abomey-Calavi (UAC), Dassa Center, Benin.  
+The final version of this github project was developped to support a training course given at IITA (Ibadan, Nigeria) from 6 to 10 May 2024 for project partners. Interaction with IITA and the partners has led to considerable improvements in the ergonomics of the scripts and examples provided.
 
 <br>
-
 
 ### Running example
 In order to support the understanding of the analysis pipeline, 
