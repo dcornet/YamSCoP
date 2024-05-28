@@ -77,24 +77,25 @@ for (avar in allVar) { # avar<-allVar[2]
   for (atime in alltimes) { # atime<-alltimes[2]
     dps<-subset(dfs, Time==atime)
     OT<-atime
-    # Read image (afile<-allpics[1])
     img_srgb<-readImage(dps$id)
     
     for (j in 1:3) {
       (i<-i+1)
+      cat(paste0("Processing: ", avar, ", ", atime, ", ", "tuber n° ", j, " (", i, "/",  nrow(df), ")\n")) 
       cmask_t<-ifelse(vmask==j, 1, 0)
       cmask_t<-EBImage::combine(cmask_t, cmask_t, cmask_t)
       img_seg_t<-img_srgb*cmask_t # plot(img_seg_t)
       img_seg_t = EBImage::resize(img_seg_t, w=fim)
       
-      df1<-data.frame(x=rep(1:dim(img_seg_t)[1], each=dim(img_seg_t)[2]),
-                      y=rep(1:dim(img_seg_t)[2], times=dim(img_seg_t)[1]),
+      df1<-data.frame(x=rep(1:dim(img_seg_t)[1], times=dim(img_seg_t)[2]),
+                      y=rep(1:dim(img_seg_t)[2], each=dim(img_seg_t)[1]),
                       R=as.vector(img_seg_t[,,1]), G=as.vector(img_seg_t[,,2]),
                       B=as.vector(img_seg_t[,,3]))
       df1<-subset(df1, (R+G+B)!=0)
       df1$Var<-VAR
       df1$Time<-OT
       df1$TubNo<-j
+      
       gg[[i]]<-df1
       rm(df1)
     }
