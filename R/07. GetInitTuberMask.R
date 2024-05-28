@@ -73,7 +73,7 @@ for (afile in allpics) {      #(afile<-allpics[3])
   
   # Read image and convert to grey matrix 
   img_srgb<-readImage(afile) # display(img_srgb)
-  img_gray<-channel(img_srgb,"luminance") # greyscale
+  img_gray<-EBImage::channel(img_srgb,"luminance") # greyscale
   # display(img_gray)
   
   # Binarize the image (Black & White)
@@ -82,7 +82,7 @@ for (afile in allpics) {      #(afile<-allpics[3])
   
   # Clean small particles
   kern = makeBrush(7, shape='disc') # make a mask with a disc shape brush of size 5pxls
-  img_bdenoised<-erode(img_bin, kern) # Opening=erosion followed by dilation
+  img_bdenoised<-EBImage::erode(img_bin, kern) # Opening=erosion followed by dilation
   # display(img_bdenoised)
   
   # Identify objects
