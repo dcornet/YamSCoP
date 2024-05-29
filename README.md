@@ -191,10 +191,13 @@ Reads data from [./out/ColorIndicesByGeniotypeAndTub.csv](./out/ColorIndicesByGe
 
 ### 4. Cluster Tuber Colors
 This R script is designed to analyze and visualize color data from images of tubers. It was mostly adapted from the [colordistance vignette](https://cran.r-project.org/web/packages/colordistance/vignettes/color-spaces.html) from Hannah Weller. It begins by loading necessary libraries and reading data from RDS and CSV files. The script defines several functions to convert RGB values to color names ([X11](https://en.wikipedia.org/wiki/X11_color_names), [NTC](https://chir.ag/projects/ntc/ntc.js) or [XKCD](https://xkcd.com/color/rgb/) color name systems), create images from RGB matrices, and perform clustering analysis. It processes each unique combination of genotype and timestamp, creating images and performing k-means clustering on the color data. The script generates plots to visualize color clusters and their proportions, and combines results across different genotypes and timestamps. Finally, it creates heatmaps to show the color distances between clusters, providing a comprehensive analysis of color variations in the tuber images.
-The first clustering method investigated is based on a binning of the 3D RGB color space using getImageHist() function. It allow o [./out/Boxplot_YelIndexPostHocByGenotype.png](./out/Boxplot_YelIndexPostHocByGenotype.png):  
+The first clustering method investigated is based on a binning of the 3D RGB color space using getImageHist() function. It allow to plot pixels in a 3D RGB box and to extract average color value for each desired bins from this box:  
 
 <img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_YelIndexPostHocByGenotype.png" width="600">  
 
+To be able to make image-specific color choices we further used k-means clusterin. If an image has important color variation in a narrow region of color space, k-means may be able to pick up on it more easily than a color histogram would. But the number of clusters might change from one image to another. Here we seek for a cluster number allowing to maximize the between-cluster sum of square (BSS) compared to the total sum of square (TSS) with BSS/TSS > 90% :
+
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_YelIndexPostHocByGenotype.png" width="600"> <img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_YelIndexPostHocByGenotype.png" width="600"> 
 
 <br>
 
