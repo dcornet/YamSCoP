@@ -172,13 +172,14 @@ for (AvarTime in unique(df$VarTime)) {
   # Generate and save bar plot of cluster proportions
   png(height = 8, width = 10, res = 300, type = "cairo", family = "Garamond", units = "in",
       filename = paste0("./out/ColorDistance/ClusterProp_", AvarTime, ".png"))
-  ggplot(res, aes(reorder(colNameXKCD, pct), pct)) +
+  p1<-ggplot(res, aes(reorder(colNameXKCD, pct), pct)) +
     geom_bar(stat = "identity", fill = rgb(res$r, res$g, res$b)) +
     geom_text(aes(label = labels), hjust = 1.1, color = res$TextColor) +
     coord_flip() +
-    theme_bw() +
+    theme_bw(base_size = 22) +
     ylab("Cluster proportion (%)") +
     xlab("Cluster's closest color name (https://xkcd.com/color/rgb/)")
+  print(p1)
   dev.off()
   
   ll[[i]] <- kbinnedTubers
