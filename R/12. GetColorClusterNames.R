@@ -1,5 +1,6 @@
 # Libraries loading ----------------------------------------------------
-packs <- c( "tidyverse", "colordistance", "png", "factoextra", "grDevices")
+packs <- c( "tidyverse", "colordistance", "png", "factoextra", "grDevices",
+            "colorscience", "gridExtra", "grid")
 InstIfNec<-function (pack) {
   if (!do.call(require,as.list(pack))) {
     do.call(install.packages,as.list(pack))  }
@@ -129,6 +130,27 @@ getClosestXKCD <- function(r, g, b) {
   return(closest_color)
 }
 
+heatmapColorDistance2 <- function(clusterList_or_matrixObject, main=NULL, col="default", margins=c(5, 6), filename, ...) {
+  obj <- clusterList_or_matrixObject
+  if (is.list(obj)) {
+    obj <- getColorDistanceMatrix(obj)
+  } else if (!is.matrix(obj)) {
+    stop("Argument is not a list (extractClusters or getHistList object)", 
+         " or a distance matrix (getColorDistanceMatrix object)")
+  }
+  if (col[1] == "default") {
+    col <- colorRampPalette(c("royalblue4", "ghostwhite", "violetred2"))(n = 299)
+  }
+  clust <- as.dist(obj)
+  png(filename, width = 600, height = 600)
+  gplots::heatmap.2(obj, symm = TRUE, col = col, Rowv = as.dendrogram(hclust(clust)), 
+                    main = main, trace = "none", density.info = "none", key.xlab = "Color distance score", 
+                    key.title = NA, keysize = 1, revC = T, srtCol = 35, na.color = "grey", 
+                    margins = margins, offsetRow = 0, offsetCol = 0, ...)
+  dev.off()
+}
+
+
 # Batch estimation of color cluster --------------------------------------------
 ll<-list()
 i<-0
@@ -193,3 +215,123 @@ for (AvarTime in c(unique(df$VarTime))){   # AvarTime<-unique(df$VarTime)[3]
   ll[[i]]<-kbinnedTubers
   names(ll)[i]<-AvarTime
 }
+
+# Gather results for all var and time -----------------------------------------
+bbdf<-data.frame()
+for (avar in unique(df$Var)) { #avar<-unique(df$Var)[1]
+  # Find the item names containing the string 'avar'
+  llid <- grep(avar, names(ll), value = TRUE)
+  
+  # Subset the list based on matching names
+  lls <- ll[llid]
+  
+  # Use lapply to extract and modify 'centers' matrices and add the 'size' value
+  llsm <- lapply(names(lls), function(name) {
+    centers_df <- as.data.frame(lls[[name]][["centers"]])
+    centers_df$parent_name <- name
+    centers_df$size <- lls[[name]][["size"]]
+    return(centers_df)})
+  
+  # Combine all modified data frames into one large data frame
+  bdf <- do.call(rbind, llsm)
+  
+  # Prepare df for plotting
+  bdf<-separate(bdf, parent_name, into=c("Var", "Timing"), sep="_")
+  bdf<-mutate(group_by(bdf, Timing), pct=size/sum(size)*100)
+  bdf$labels<-paste0(round(bdf$pct,0), "%")
+  bdf<-ungroup(bdf)
+  bdf$colNameX11<-apply(bdf, 1, function(row) {
+    getClosestX11ColorName(as.numeric(row['r'])*255, as.numeric(row['g'])*255, as.numeric(row['b'])*255)
+  })
+  bdf$colNameNTC<-apply(bdf, 1, function(row) {
+    getClosestNTC(as.numeric(row['r'])*255, as.numeric(row['g'])*255, as.numeric(row['b'])*255)
+  })
+  bdf$colNameXKCD<-apply(bdf, 1, function(row) {
+    getClosestXKCD(as.numeric(row['r'])*255, as.numeric(row['g'])*255, as.numeric(row['b'])*255)
+  })
+  bdf$L<-XYZ2Lab(RGB2XYZ(dplyr::select(bdf, r:b)))[,1]
+  bdf$TextColor<-ifelse(bdf$L > 50, "black", "white")
+  
+  bbdf <- rbind(bbdf, bdf)
+}
+
+# Color cluster dynamic by genotype -------------------------------------------
+# Ensure 'Timing' and 'colNameXKCD' are factors with levels in the sorted order
+bbdf$colNameXKCD<-fct_reorder(bbdf$colNameXKCD, bbdf$L)
+
+# Plot color evolution by var
+png(height=8, width=10, res=300, type="cairo",family="Garamond", units="in",
+    filename="./out/ColorClusterDynamicByVar.png")
+ggplot(bbdf, aes(Timing, pct, group=colNameXKCD))+
+  geom_bar(stat="identity", fill=rgb(bbdf$r, bbdf$g, bbdf$b))+
+  facet_grid(Var~.) +
+  scale_fill_identity()+
+  theme_bw()+
+  xlab("Observation timestamps (s)")+
+  ylab("Color cluster proportion (%)")
+dev.off()
+
+
+# Genotype clustering at initial and final observation -------------------------
+initpics<-list.files("./out/AllSegmentedTubers", pattern="_0.png", full.names=T)
+finalpics<-list.files("./out/AllSegmentedTubers", pattern="_870.png", full.names=T)
+
+# k-means RGB distances
+bbdf$Pct<-bbdf$pct
+tti<-select(subset(bbdf, Timing=="0"), r:b, Pct, Var)
+ttf<-select(subset(bbdf, Timing=="870"), r:b, Pct, Var)
+ltti <- split(tti, tti$Var)
+ltti <- lapply(ltti, function(df) df[, -which(names(df) == "Var")])
+lttf <- split(ttf, ttf$Var)
+lttf <- lapply(lttf, function(df) df[, -which(names(df) == "Var")])
+
+# binned RGB distances
+rgbi <- colordistance::getHistList(initpics, lower=rep(0, 3), upper=rep(.1, 3))
+rgbf <- colordistance::getHistList(finalpics, lower=rep(0, 3), upper=rep(.1, 3))
+
+# binned Lab distances
+labi <- colordistance::getLabHistList(initpics, lower=rep(0, 3), # plot=T,
+                                      upper=rep(.1, 3), ref.white = "D65")
+labf <- colordistance::getLabHistList(finalpics, lower=rep(0, 3),  # plot=T,
+                                      upper=rep(.1, 3), ref.white = "D65")
+
+# Cluster matrices using earth mover's distance
+EMD_rgbi <- colordistance::getColorDistanceMatrix(rgbi, method="emd")
+EMD_rgbf <- colordistance::getColorDistanceMatrix(rgbf, method="emd")
+EMD_labi <- colordistance::getColorDistanceMatrix(labi, method="emd")
+EMD_labf <- colordistance::getColorDistanceMatrix(labf, method="emd")
+EMD_krgbi <- colordistance::getColorDistanceMatrix(ltti, method="emd")
+EMD_krgbf <- colordistance::getColorDistanceMatrix(lttf, method="emd")
+
+
+# Plot results
+colnames(EMD_rgbi)<-gsub("SegTuber_", "", gsub("_0", "", colnames(EMD_rgbi)))
+colnames(EMD_rgbf)<-gsub("SegTuber_", "", gsub("_870", "", colnames(EMD_rgbf)))
+colnames(EMD_labi)<-gsub("SegTuber_", "", gsub("_0.png", "", colnames(EMD_labi)))
+colnames(EMD_labf)<-gsub("SegTuber_", "", gsub("_870.png", "", colnames(EMD_labf)))
+rownames(EMD_rgbi)<-gsub("SegTuber_", "", gsub("_0", "", rownames(EMD_rgbi)))
+rownames(EMD_rgbf)<-gsub("SegTuber_", "", gsub("_870", "", rownames(EMD_rgbf)))
+rownames(EMD_labi)<-gsub("SegTuber_", "", gsub("_0.png", "", rownames(EMD_labi)))
+rownames(EMD_labf)<-gsub("SegTuber_", "", gsub("_870.png", "", rownames(EMD_labf)))
+
+# Create and save individual plots as PNG files
+heatmapColorDistance2(EMD_rgbi, main="Color distances between RGB based\n bins at intial timestamp", filename = "./out/plot1.png")
+heatmapColorDistance2(EMD_rgbf, main="Color distances between RGB based\n bins at final timestamp", filename = "./out/plot2.png")
+heatmapColorDistance2(EMD_labi, main="Color distances between Lab based\n bins at intial timestamp", filename = "./out/plot3.png")
+heatmapColorDistance2(EMD_labf, main="Color distances between Lab based\n bins at final timestamp", filename = "./out/plot4.png")
+heatmapColorDistance2(EMD_krgbi, main="Color distances between RGB based\n k-means clusters at intial timestamp", filename = "./out/plot5.png")
+heatmapColorDistance2(EMD_krgbf, main="Color distances between RGB based\n k-means clusters at final timestamp", filename = "./out/plot6.png")
+
+# Read the PNG files and create raster grobs
+plot1 <- rasterGrob(readPNG("./out/plot1.png"))
+plot2 <- rasterGrob(readPNG("./out/plot2.png"))
+plot3 <- rasterGrob(readPNG("./out/plot3.png"))
+plot4 <- rasterGrob(readPNG("./out/plot4.png"))
+plot5 <- rasterGrob(readPNG("./out/plot5.png"))
+plot6 <- rasterGrob(readPNG("./out/plot6.png"))
+
+# Arrange the plots in a 2x2 grid
+png(height=12, width=8, res=300, type="cairo",family="Garamond", units="in",
+    filename="./out/ColorDistanceHeatmaps.png")
+grid.arrange(plot1, plot2, plot3, plot4, plot5, plot6, ncol=2)
+dev.off()
