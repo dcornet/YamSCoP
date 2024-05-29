@@ -14,7 +14,7 @@
 - [Accuracy and Repeatability of Color Measurements](#accuracy-and-repeatability-of-color-measurements)
   - [1. Create a Custom Color Chart](#1-create-a-custom-color-chart)
   - [2. Extract Color Chart Values from Images](#2-extract-color-chart-values-from-images)
-  - [3. Calculate Color Differences (Delta E 2000) between Images and Physical Charts](#3.-Calculate-Color-Differences-(Delta-E-2000)-between-Images-and-Physical-Charts)
+  - [3. Calculate Color Differences between Images and Physical Charts](#3.-Calculate-Color-Differences-between-Images-and-Physical-Charts)
   - [4. Obtain White-Corrected Images](#4-obtain-white-corrected-images)
 - [Tuber Segmentation](#tuber-segmentation)
   - [1. Generate Initial Tuber Mask](#1-generate-initial-tuber-mask)
@@ -106,7 +106,7 @@ Outputs several files including [individual patch recognition images](./out/Patc
 
 <br>
 
-### 3. Calculate Color Differences (Delta E 2000) between Images and Physical Charts
+### 3. Calculate Color Differences between Images and Physical Charts
 Calculates the Delta E 2000 color difference values (dE2000, [Sharma et al. 2004](http://www.ece.rochester.edu/~gsharma/ciede2000/ciede2000noteCRNA.pdf)) from the color charts between images (repeatability) and against real chart value measured using chromamater (accuracy). This script calculates the dE2000 color difference betweentheoretical and observed color values from color patches (before and after white correction). It generates visual representations of these differences and assesses variation across multiple measurements. The script handles large data sets and uses advanced color science techniques to provide accurate and detailed color analysis. The script reads processed color data from [./out/PicsChartLab.csv](./out/PicsChartLab.csv) and theoretical values from [./data/ColorChartTheoreticalValues.csv](./data/ColorChartTheoreticalValues.csv). Outputs include PNG files visualizing the [dE2000 differences](./out/):  
 <img src="https://github.com/dcornet/YamSCoP/blob/main/out/dE_BetweenPics.png" width="900">  
 
