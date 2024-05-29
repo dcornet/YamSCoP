@@ -203,6 +203,13 @@ From the color cluster values, it is then possible to look for the closer color 
 
 <img src="https://github.com/dcornet/YamSCoP/blob/main/Images/YamScop_kmeans_colName.png" width="600"> 
 
+Dealing wit 4 genotypes followed during time, it is possible to illustrate the color cluster dynamic bteween genotypes:
+
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/ColorClusterDynamicByVar.png" width="900"> 
+
+And finally we can look at the genotype clustering based on color distances between them:
+
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/ColorDistanceHeatmaps.png" width="600"> 
 
 <br>
 
