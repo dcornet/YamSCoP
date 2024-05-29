@@ -14,7 +14,7 @@
 - [Accuracy and Repeatability of Color Measurements](#accuracy-and-repeatability-of-color-measurements)
   - [1. Create a Custom Color Chart](#1-create-a-custom-color-chart)
   - [2. Extract Color Chart Values from Images](#2-extract-color-chart-values-from-images)
-  - [3. Calculate Color Differences (Delta E 2000) between Images and Physical Charts](#3-calculate-color-differences-delta-e-2000)
+  - [3. Calculate Color Differences (Delta E 2000) between Images and Physical Charts](#3.-Calculate-Color-Differences-(Delta-E-2000)-between-Images-and-Physical-Charts)
   - [4. Obtain White-Corrected Images](#4-obtain-white-corrected-images)
 - [Tuber Segmentation](#tuber-segmentation)
   - [1. Generate Initial Tuber Mask](#1-generate-initial-tuber-mask)
