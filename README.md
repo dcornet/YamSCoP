@@ -6,20 +6,24 @@
 
 ## Table of Contents
 - [Overview](#overview)
-  - [Projects](#Projects)
-  - [Running example](#Running-example)  
-- [Scripts Description](#scripts-description)
-  - [1. Create Custom Color Chart](#1-create-custom-color-chart)
-  - [2. Get Picture Exif Information](#2-get-picture-exif-information)
-  - [3. Convert RAW to JPG](#3-convert-raw-to-jpg)
-  - [4. Get Picture Color Chart](#4-get-picture-color-chart)
-  - [5. Get Chart Delta E 2000](#5-get-chart-delta-e-2000)
-  - [6. Get White Corrected Pictures](#6-get-white-corrected-pictures)
-  - [7. Get Initial Tuber Mask](#7-get-initial-tuber-mask)
-  - [8. Get Tuber Color Matrix](#8-get-tuber-color-matrix)
-  - [9. Get Color Indices](#9-get-color-indices)
-  - [10. Basic Shape Characterization](#10-basic-shape-characterization)
-  - [11. Example of genotypes post-hoc comparison for yellowness](#11-example-of-genotypes-post-hoc-comparison-for-yellowness)
+  - [Projects](#projects)
+  - [Running Example](#running-example)  
+- [Image Format and Metadata Management](#image-format-and-metadata-management)
+  - [1. Extract EXIF Information from Images](#1-extract-exif-information-from-images)
+  - [2. Convert RAW Files to JPG](#2-convert-raw-files-to-jpg)
+- [Accuracy and Repeatability of Color Measurements](#accuracy-and-repeatability-of-color-measurements)
+  - [1. Create a Custom Color Chart](#1-create-a-custom-color-chart)
+  - [2. Extract Color Chart Values from Images](#2-extract-color-chart-values-from-images)
+  - [3. Calculate Color Differences between Images and Physical Charts](#3-calculate-color-differences-between-images-and-physical-charts)
+  - [4. Obtain White-Corrected Images](#4-obtain-white-corrected-images)
+- [Tuber Segmentation](#tuber-segmentation)
+  - [1. Generate Initial Tuber Mask](#1-generate-initial-tuber-mask)
+  - [2. Extract Tuber Color Matrix](#2-extract-tuber-color-matrix)
+- [Interpretation of Color Values](#interpretation-of-color-values)
+  - [1. Derive Color Indices](#1-derive-color-indices)
+  - [2. Characterize Basic Shapes](#2-characterize-basic-shapes)
+  - [3. Post-Hoc Comparison of Genotypes for Yellowness](#3-post-hoc-comparison-of-genotypes-for-yellowness)
+  - [4. Cluster Tuber Colors](#4-cluster-tuber-colors)
 - [Usage](#usage)
 - [Installation](#installation)  
 
@@ -47,28 +51,15 @@ To help you understand and use the analysis pipeline, a set of images is provide
 
 <br>
 
-## Scripts Description  
-### 1. Create Custom Color Chart
-Generates a custom color chart from images, allowing users to select specific color ranges and create a standardized color reference for image analysis. User can customize, the number of color patch present on the chart. A dedicated patch is always kept for pure white. Some example of yam tuber flesh images are given in the [data](./data) repository.
-Outputs two csv files and two .png files :
-* [ChartColorValues.csv](./out/CustomColorChart/ChartColorValues.csv): provide RGB, XYZ and CIE Lab color values for created custom chart
-* [ColorDifferences.csv](./out/CustomColorChart/ColorDifference.csv): provide color differences (dE2000) between each patch of the created color chart
-* [TargetB5_RGB_Lab.png](./out/CustomColorChart/TargetB5_RGB_Lab.png): Image of the created chart with color value label and patch number
-* [TargetB5.png](./out/CustomColorChart/TargetB5.png): Image of the created chart to be printed
-[Output file path](./out/CustomColorChart)
-<img src="./out/CustomColorChart/TargetB5_RGB_Lab.png" width="25%">
-<p>This script logs its progress to the console and will report on incompatible chart size or potential issues with color picked from image (e.g. similar color based on dE2000 distance).</p>
-
-<br>
-
-### 2. Get Picture Exif Information
+## Image Format and Metadata Management 
+### 1. Extract EXIF Information from Images
 Extracts EXIF information from images, which is crucial for understanding the capture conditions and camera settings used during the phenotyping process.
 Ensure you have .NEF images of the desired object on your drive (if not, change the exstension). Some example of yam tuber flesh images are given in the [data](./data/TuberColorSamples) repository.
 Outputs a CSV file with metadata extracted from images: [Output file path](./out/Picsmeta.csv) 
 
 <br>
 
-### 3. Convert RAW to JPG
+### 2. Convert RAW Files to JPG
 Converts RAW image files to JPG format, preparing them for further processing and analysis in the pipeline. It uses parallel processing to speed up the conversion of multiple images simultaneously. The script reads metadata from a previously generated CSV [file](./out/Picsmeta.csv). It expects this file to contain paths to NEF images stored in the column 'SourceFile'. 
 In order to speed up the subsequent processing of images, for example, the .NEF image is resized before being converted to .JPG: 
 ```R
@@ -83,7 +74,22 @@ Converted JPG images are outputed to this [directory](./out/JPGconvertedPics/). 
 
 <br>
 
-### 4. Get Picture Color Chart
+## Accuracy and Repeatability of Color Measurements  
+### 1. Create a Custom Color Chart
+Generates a custom color chart from images, allowing users to select specific color ranges and create a standardized color reference for image analysis. User can customize, the number of color patch present on the chart. A dedicated patch is always kept for pure white. Some example of yam tuber flesh images are given in the [data](./data) repository.
+Outputs two csv files and two .png files :
+* [ChartColorValues.csv](./out/CustomColorChart/ChartColorValues.csv): provide RGB, XYZ and CIE Lab color values for created custom chart
+* [ColorDifferences.csv](./out/CustomColorChart/ColorDifference.csv): provide color differences (dE2000) between each patch of the created color chart
+* [TargetB5_RGB_Lab.png](./out/CustomColorChart/TargetB5_RGB_Lab.png): Image of the created chart with color value label and patch number
+* [TargetB5.png](./out/CustomColorChart/TargetB5.png): Image of the created chart to be printed
+[Output file path](./out/CustomColorChart)
+<img src="./out/CustomColorChart/TargetB5_RGB_Lab.png" width="25%">
+<p>This script logs its progress to the console and will report on incompatible chart size or potential issues with color picked from image (e.g. similar color based on dE2000 distance).</p>
+
+<br>
+
+
+### 2. Extract Color Chart Values from Images
 Analyzes images to retrieve color chart data, which is used to calibrate and correct colors in phenotyping images accurately. Color patch are detected using the simpleBlobDetector function of Rvision package:
 ```R
    patch<-Rvision::simpleBlobDetector(
@@ -100,7 +106,7 @@ Outputs several files including [individual patch recognition images](./out/Patc
 
 <br>
 
-### 5. Get Chart Delta E 2000
+### 3. Calculate Color Differences between Images and Physical Charts
 Calculates the Delta E 2000 color difference values (dE2000, [Sharma et al. 2004](http://www.ece.rochester.edu/~gsharma/ciede2000/ciede2000noteCRNA.pdf)) from the color charts between images (repeatability) and against real chart value measured using chromamater (accuracy). This script calculates the dE2000 color difference betweentheoretical and observed color values from color patches (before and after white correction). It generates visual representations of these differences and assesses variation across multiple measurements. The script handles large data sets and uses advanced color science techniques to provide accurate and detailed color analysis. The script reads processed color data from [./out/PicsChartLab.csv](./out/PicsChartLab.csv) and theoretical values from [./data/ColorChartTheoreticalValues.csv](./data/ColorChartTheoreticalValues.csv). Outputs include PNG files visualizing the [dE2000 differences](./out/):  
 <img src="https://github.com/dcornet/YamSCoP/blob/main/out/dE_BetweenPics.png" width="900">  
 
@@ -118,25 +124,27 @@ In order to interpret results, the table below explains how different Delta E va
 
 <br>
 
-### 6. Get White Corrected Pictures
+### 4. Obtain White-Corrected Images
 Applies white balancing to images based on color chart data, ensuring that colors are represented accurately in images before analysis. The applied white correction follow [Mendoza et al. 2006](http://dx.doi.org/10.1016/j.postharvbio.2006.04.004).It utilizes color science transformations to convert image colors from RGB to XYZ to Lab and back, applying white balance correction with reference white values derived from theoretical color charts and observed image data. Images are read from [./out/JPGconvertedPics/](./out/JPGconvertedPics/) and color data from [./out/Picsmeta.csv](./out/Picsmeta.csv). Theoretical color values are read from [./data/ColorChartTheoreticalValues.csv](./data/ColorChartTheoreticalValues.csv). Outputs corrected images into [./out/WhiteCorrected/](./out/WhiteCorrected/).  
 
 <br>
 
-### 7. Get Initial Tuber Mask
+## Tuber Segmentation
+### 1. Generate Initial Tuber Mask
 Creates initial segmentation masks for tubers in images, which are used to isolate and analyze specific tuber regions in subsequent scripts. It processes a series of JPEG images to segment tubers based on color and shape parameters. It utilizes image processing techniques to binarize, denoise, and segment images, extracting shape features for further analysis and keeping segmentation mask for each genotype to be applied later on further image from the same time series. Images are read from [./out/WhiteCorrected/](./out/WhiteCorrected/) and metadata from [./out/Picsmeta.csv](./out/Picsmeta.csv). 
 Genotype tuber sgmentation mask is kept in a .RDS file for later analysis. Detailed shape parameters are saved to [./out/BasicShapeParams.csv](./out/BasicShapeParams.csv). Outputs include segmented images and shape parameters results saved in [./out/TuberSegmentation/](./out/TuberSegmentation/):
 <img src="https://github.com/dcornet/YamSCoP/blob/main/Images/YamSCoP_Segmentation.jpg" width="900">
 
 <br>
 
-### 8. Get Tuber Color Matrix
+### 2. Extract Tuber Color Matrix
 Extracts color data from tuber segments and compiles this into a matrix format for further statistical analysis. This script processes a series of JPEG images from multiple genotypes of tubers to analyze and extract color data. It applies image segmentation masks and resizes images for standardized processing. The script operates in batches, handling images by genotype and time, and compiles color data into a large dataset. Images are loaded from [./out/WhiteCorrected/](./out/WhiteCorrected/) with metadata from [./out/Picsmeta.csv](./out/Picsmeta.csv). Image segmentation masks are read from [./out/InitTuberMask.RDS](./out/InitTuberMask.RDS). Outputs color data for each segmented tuber pixel into [./out/TuberColors.RDS](./out/TuberColors.RDS). Each entry includes the RGB color values and related metadata for the segmented areas.
 The script handles large image files and generates substantial data, requiring significant memory and processing power. Ensure adequate system resources are available before running.  
 
 <br>
 
-### 9. Get Color Indices
+## Interpretation of Color Values
+### 1. Derive Color Indices
 Calculates various color indices from the tuber color data, providing detailed insights into the color traits of different yam varieties. This script is designed to calculate and analyze various color indices from tuber images. It converts RGB color values to different color spaces and calculates several indices including whiteness and yellowness. The script further examines the changes in these indices over time and across different genotypes, and conducts statistical analysis including correlation matrices and principal component analysis (PCA) to explore the relationships between the different color traits. Color data for tubers are loaded from [./out/TuberColors.RDS](./out/TuberColors.RDS), which includes segmented image data with RGB values for different tuber sections. 
 Available color indices:
 | Index | Equation | Reference |
@@ -161,7 +169,7 @@ Additionally, relationships between variables can be studied using correlation p
 
 <br>
 
-### 10. Basic Shape Characterization
+### 2. Characterize Basic Shapes
 Analyzes basic shape parameters of yams using image processing techniques to quantify morphological traits that are critical for breed characterization and selection.
 This script analyzes the shape parameters of tubers from digitized image data. It adjusts raw measurements for pixel resolution to derive real-world dimensions in millimeters and square centimeters. The script performs statistical comparisons of these shape parameters across different tuber genotypes, using box plots to visually represent variations and conducting post-hoc tests to identify statistically significant differences.
 Processes shape data from [./out/BasicShapeParams.csv](./out/BasicShapeParams.csv), which contains various geometric measurements derived from image analysis.
@@ -171,11 +179,22 @@ Produces box plots saved as PNG files in './out/', comparing different shape tra
 
 <br>
 
-### 11. Example of genotypes post-hoc comparison for yellowness
+### 3. Post-Hoc Comparison of Genotypes for Yellowness
 Performs statistical comparisons between different yam genotypes based on the extracted color indices, helping to highlight phenotypic differences driven by genetic variation. This script performs a detailed post hoc statistical comparison of the Yellowness index among different genotypes. It utilizes a Bonferroni adjustment for multiple comparisons and generates box plots to visually represent the differences across genotypes, facilitating the identification of significant variations.
 Reads data from [./out/ColorIndicesByGeniotypeAndTub.csv](./out/ColorIndicesByGeniotypeAndTub.csv), focusing on Yellowness index values. Generates a box plot visualizing the post hoc comparisons of the Yellowness index across genotypes. The plot is saved to [./out/Boxplot_YelIndexPostHocByGenotype.png](./out/Boxplot_YelIndexPostHocByGenotype.png):  
 
 <img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_YelIndexPostHocByGenotype.png" width="600">  
+
+
+<br>
+
+
+### 4. Cluster Tuber Colors
+This R script is designed to analyze and visualize color data from images of tubers. It was mostly adapted from the [colordistance vignette](https://cran.r-project.org/web/packages/colordistance/vignettes/color-spaces.html) from Hannah Weller. It begins by loading necessary libraries and reading data from RDS and CSV files. The script defines several functions to convert RGB values to color names ([X11](https://en.wikipedia.org/wiki/X11_color_names), [NTC](https://chir.ag/projects/ntc/ntc.js) or [XKCD](https://xkcd.com/color/rgb/) color name systems), create images from RGB matrices, and perform clustering analysis. It processes each unique combination of genotype and timestamp, creating images and performing k-means clustering on the color data. The script generates plots to visualize color clusters and their proportions, and combines results across different genotypes and timestamps. Finally, it creates heatmaps to show the color distances between clusters, providing a comprehensive analysis of color variations in the tuber images.
+Reads data from [./out/ColorIndicesByGeniotypeAndTub.csv](./out/ColorIndicesByGeniotypeAndTub.csv), focusing on Yellowness index values. Generates a box plot visualizing the post hoc comparisons of the Yellowness index across genotypes. The plot is saved to [./out/Boxplot_YelIndexPostHocByGenotype.png](./out/Boxplot_YelIndexPostHocByGenotype.png):  
+
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_YelIndexPostHocByGenotype.png" width="600">  
+
 
 <br>
 
@@ -187,28 +206,43 @@ Each script is standalone but designed to be run sequentially as part of the pip
 
 ## Installation
 Ensure R is installed on your machine along with the necessary packages:
-* colorscience - For color science calculations and transformations.
-* doParallel - For parallel computing capabilities.
-* EBImage - For image processing and analysis (used in image-based scripts).
-* exifr - Reads EXIF data using [ExifTool](https://exiftool.org) and returns results as a data frame.
-* factoextra - For visualizing results from FactoMineR.
-* FactoMineR - For exploratory and multivariate data analysis.
-* farver - For high-performance color space manipulation.
-* foreach - For executing looping constructs.
-* ggcorrplot - For visualizing correlation matrices.
-* ggpubr - For creating easily publishable ggplot2 plots.
-* gridExtra - For arranging multiple grid-based plots.
-* imager - For image processing and analysis.
-* inti - For genetic statistics such as heritability.
-* lme4 - For fitting linear mixed-effects models.
-* lmerTest - To provide p-values for linear mixed-effect models.
-* magick - For advanced image processing capabilities.
-* multcomp - For conducting multiple comparisons.
-* parallel - For support for parallel computation.
-* psych - For psychological, psychometric, and personality research
-* randomcoloR - For generating distinct colors for data visualization.
-* Rvision - For image processing and analysis, particularly in handling and analyzing image data in R
-* tidyverse - For data manipulation and visualization.
+
+### Color Science and Manipulation
+- [colorscience](https://cran.r-project.org/web/packages/colorscience/vignettes/colorscience.html) - For color science calculations and transformations.
+- [farver](https://cran.r-project.org/web/packages/farver/vignettes/farver.html) - For high-performance color space manipulation.
+- [randomcoloR](https://cran.r-project.org/web/packages/randomcoloR/vignettes/randomcoloR.html) - For generating distinct colors for data visualization.
+- [colordistance](https://cran.r-project.org/web/packages/colordistance/vignettes/colordistance.html) - For comparing images based on color content.
+
+### Image Processing and Analysis
+- [EBImage](https://bioconductor.org/packages/release/bioc/vignettes/EBImage/inst/doc/EBImage-introduction.html) - For image processing and analysis (used in image-based scripts).
+- [exifr](https://cran.r-project.org/web/packages/exifr/vignettes/exifr.html) - Reads EXIF data using ExifTool and returns results as a data frame.
+- [imager](https://cran.r-project.org/web/packages/imager/vignettes/imager.html) - For image processing and analysis.
+- [magick](https://cran.r-project.org/web/packages/magick/vignettes/intro.html) - For advanced image processing capabilities.
+- [Rvision](https://cran.r-project.org/web/packages/Rvision/vignettes/Rvision.html) - For image processing and analysis, particularly in handling and analyzing image data in R.
+- [png](https://cran.r-project.org/web/packages/png/vignettes/png.pdf) - For reading and writing PNG images.
+
+### Data Analysis and Visualization
+- [factoextra](https://cran.r-project.org/web/packages/factoextra/vignettes/factoextra.html) - For visualizing results from FactoMineR.
+- [FactoMineR](https://cran.r-project.org/web/packages/FactoMineR/vignettes/FactoMineR.html) - For exploratory and multivariate data analysis.
+- [ggcorrplot](https://cran.r-project.org/web/packages/ggcorrplot/vignettes/ggcorrplot.html) - For visualizing correlation matrices.
+- [ggpubr](https://cran.r-project.org/web/packages/ggpubr/vignettes/ggpubr.html) - For creating easily publishable ggplot2 plots.
+- [gridExtra](https://cran.r-project.org/web/packages/gridExtra/vignettes/arrangeGrob.html) - For arranging multiple grid-based plots.
+- [psych](https://cran.r-project.org/web/packages/psych/vignettes/overview.pdf) - For psychological, psychometric, and personality research.
+- [tidyverse](https://cran.r-project.org/web/packages/tidyverse/vignettes/tidyverse.html) - For data manipulation and visualization.
+- [grid](https://cran.r-project.org/web/packages/grid/vignettes/grid.pdf) - For graphics functions.
+- [grDevices](https://cran.r-project.org/web/packages/grDevices/vignettes/grDevices.pdf) - For base graphic devices and support for color handling.
+
+### Parallel Computing
+- [doParallel](https://cran.r-project.org/web/packages/doParallel/vignettes/gettingstartedParallel.html) - For parallel computing capabilities.
+- [foreach](https://cran.r-project.org/web/packages/foreach/vignettes/foreach.html) - For executing looping constructs.
+- [parallel](https://cran.r-project.org/web/packages/parallel/vignettes/parallel.pdf) - For support for parallel computation.
+
+## Statistical Modeling and Analysis
+- [inti](https://cran.r-project.org/web/packages/inti/vignettes/inti.html) - For genetic statistics such as heritability.
+- [lme4](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.html) - For fitting linear mixed-effects models.
+- [lmerTest](https://cran.r-project.org/web/packages/lmerTest/vignettes/lmerTest.html) - To provide p-values for linear mixed-effect models.
+- [multcomp](https://cran.r-project.org/web/packages/multcomp/vignettes/multcomp.html) - For conducting multiple comparisons.
+
 
 <br>
 
