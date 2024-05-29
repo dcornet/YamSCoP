@@ -187,28 +187,43 @@ Each script is standalone but designed to be run sequentially as part of the pip
 
 ## Installation
 Ensure R is installed on your machine along with the necessary packages:
-* colorscience - For color science calculations and transformations.
-* doParallel - For parallel computing capabilities.
-* EBImage - For image processing and analysis (used in image-based scripts).
-* exifr - Reads EXIF data using [ExifTool](https://exiftool.org) and returns results as a data frame.
-* factoextra - For visualizing results from FactoMineR.
-* FactoMineR - For exploratory and multivariate data analysis.
-* farver - For high-performance color space manipulation.
-* foreach - For executing looping constructs.
-* ggcorrplot - For visualizing correlation matrices.
-* ggpubr - For creating easily publishable ggplot2 plots.
-* gridExtra - For arranging multiple grid-based plots.
-* imager - For image processing and analysis.
-* inti - For genetic statistics such as heritability.
-* lme4 - For fitting linear mixed-effects models.
-* lmerTest - To provide p-values for linear mixed-effect models.
-* magick - For advanced image processing capabilities.
-* multcomp - For conducting multiple comparisons.
-* parallel - For support for parallel computation.
-* psych - For psychological, psychometric, and personality research
-* randomcoloR - For generating distinct colors for data visualization.
-* Rvision - For image processing and analysis, particularly in handling and analyzing image data in R
-* tidyverse - For data manipulation and visualization.
+
+### Color Science and Manipulation
+- [colorscience](https://cran.r-project.org/web/packages/colorscience/vignettes/colorscience.html) - For color science calculations and transformations.
+- [farver](https://cran.r-project.org/web/packages/farver/vignettes/farver.html) - For high-performance color space manipulation.
+- [randomcoloR](https://cran.r-project.org/web/packages/randomcoloR/vignettes/randomcoloR.html) - For generating distinct colors for data visualization.
+- [colordistance](https://cran.r-project.org/web/packages/colordistance/vignettes/colordistance.html) - For comparing images based on color content.
+
+### Image Processing and Analysis
+- [EBImage](https://bioconductor.org/packages/release/bioc/vignettes/EBImage/inst/doc/EBImage-introduction.html) - For image processing and analysis (used in image-based scripts).
+- [exifr](https://cran.r-project.org/web/packages/exifr/vignettes/exifr.html) - Reads EXIF data using ExifTool and returns results as a data frame.
+- [imager](https://cran.r-project.org/web/packages/imager/vignettes/imager.html) - For image processing and analysis.
+- [magick](https://cran.r-project.org/web/packages/magick/vignettes/intro.html) - For advanced image processing capabilities.
+- [Rvision](https://cran.r-project.org/web/packages/Rvision/vignettes/Rvision.html) - For image processing and analysis, particularly in handling and analyzing image data in R.
+- [png](https://cran.r-project.org/web/packages/png/vignettes/png.pdf) - For reading and writing PNG images.
+
+### Data Analysis and Visualization
+- [factoextra](https://cran.r-project.org/web/packages/factoextra/vignettes/factoextra.html) - For visualizing results from FactoMineR.
+- [FactoMineR](https://cran.r-project.org/web/packages/FactoMineR/vignettes/FactoMineR.html) - For exploratory and multivariate data analysis.
+- [ggcorrplot](https://cran.r-project.org/web/packages/ggcorrplot/vignettes/ggcorrplot.html) - For visualizing correlation matrices.
+- [ggpubr](https://cran.r-project.org/web/packages/ggpubr/vignettes/ggpubr.html) - For creating easily publishable ggplot2 plots.
+- [gridExtra](https://cran.r-project.org/web/packages/gridExtra/vignettes/arrangeGrob.html) - For arranging multiple grid-based plots.
+- [psych](https://cran.r-project.org/web/packages/psych/vignettes/overview.pdf) - For psychological, psychometric, and personality research.
+- [tidyverse](https://cran.r-project.org/web/packages/tidyverse/vignettes/tidyverse.html) - For data manipulation and visualization.
+- [grid](https://cran.r-project.org/web/packages/grid/vignettes/grid.pdf) - For graphics functions.
+- [grDevices](https://cran.r-project.org/web/packages/grDevices/vignettes/grDevices.pdf) - For base graphic devices and support for color handling.
+
+### Parallel Computing
+- [doParallel](https://cran.r-project.org/web/packages/doParallel/vignettes/gettingstartedParallel.html) - For parallel computing capabilities.
+- [foreach](https://cran.r-project.org/web/packages/foreach/vignettes/foreach.html) - For executing looping constructs.
+- [parallel](https://cran.r-project.org/web/packages/parallel/vignettes/parallel.pdf) - For support for parallel computation.
+
+## Statistical Modeling and Analysis
+- [inti](https://cran.r-project.org/web/packages/inti/vignettes/inti.html) - For genetic statistics such as heritability.
+- [lme4](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.html) - For fitting linear mixed-effects models.
+- [lmerTest](https://cran.r-project.org/web/packages/lmerTest/vignettes/lmerTest.html) - To provide p-values for linear mixed-effect models.
+- [multcomp](https://cran.r-project.org/web/packages/multcomp/vignettes/multcomp.html) - For conducting multiple comparisons.
+
 
 <br>
 
