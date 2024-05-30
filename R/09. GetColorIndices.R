@@ -52,17 +52,20 @@ lapply(packs, InstIfNec)
 # Load data and estimate color indices ----------------------------------------
 # Load informations about images
 df<-readRDS("./out/TuberColors.RDS")
+# df[,c("Xs", "Ys", "Zs")]<-RGB2XYZ(df[, c("R", "G", "B")]) # required for calculation of ASTM E313 indices
 
 # Get color indices # if the df is too big go for data.table package and format
 df[,c("L","a","b")]<-convert_colour(df[, c("R","G","B")]*255, from="RGB", to="Lab")
 df[,c("H","S","V")]<-convert_colour(df[, c("R","G","B")]*255, from="RGB", to="hsv")
 df$WIcroes<-with(df, L-sqrt(a^2)-b) # Croes, A.W. 1961. Measurement of flour whiteness. Cereal Chem.38:8-13
+# df$WIe313<-with(df, 100-sqrt((100-Ys)^2+Xs^2+Zs^2)) # DOI: 10.1520/E0313-20 
 # df$WI<-with(df, 100-sqrt((100-L)^2+a^2+b^2)) # Judd and Wyszecki (1963) => not good
 df$Hue<-with(df, ifelse(a<0, 180+atan(b/a)*180/pi, atan(b/a)*180/pi))
 df$Chroma<-sqrt(df$a^2+df$b^2) 
 df$CIRG<-with(df, (180-Hue)/(L+Chroma)) # Carreno et al 1995 CIRG (McGuire, 1992)
 # df$WIhunter<-with(df, L-3*b) # Whitness indice (Hunter 1960) => not usefull
 df$YIfc<-with(df, 142.86*b/L) # Yellowness indice (Francis and Clydesdale 1975)
+# df$YIe313<-with(df, 100*(1.3013*Xs-1.1498*Zs)/Ys) # DOI: 10.1520/E0313-20 
 df$X<-with(df, (a+1.75*L)/(5.645*L+a-3.012*b))
 df$BI<-with(df, 100*(X-0.31)/.172) 
 df$WY<-df$WIcroes/df$YIfc
