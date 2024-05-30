@@ -149,7 +149,7 @@ Calculates various color indices from the tuber color data, providing detailed i
 Available color indices:
 | Index | Equation | Reference |
 |---------|---------|------------------------------------------|
-| Whiteness index | $$WI_{Croes} = L - 3b$$ | [Croes 1961](https://www.cerealsgrains.org/publications/cc/backissues/1961/Documents/chem38_8.pdf) |
+| Whiteness index | $$WI_{Croes} = L - \sqrt{a^2} - b$$ | [Croes 1961](https://www.cerealsgrains.org/publications/cc/backissues/1961/Documents/chem38_8.pdf) |
 | Whiteness index | $$WI_{Judd}  = 100 - \sqrt{(100 - L)^2 + a^2 + b^2}$$ | [Judd and Wyszecki 1963; *In* Hirschler 2012](https://www.researchgate.net/file.PostFileLoader.html?id=562c1fc85f7f715b228b4577&assetKey=AS:288236296523776@1445732296739) |
 | Whiteness index | $$WI_{Hunter} = L - 3b$$ | [Hunter 1960](https://opg.optica.org/josa/abstract.cfm?URI=josa-50-1-44) |
 | Yam purpelness index | $$Hue = 180 + \frac{\arctan(\frac{b}{a}) \cdot 180}{\pi} \text{  if } a < 0 \quad \text{else} \quad \frac{\arctan(\frac{b}{a}) \cdot 180}{\pi}$$ | [Jouhar et al. 2022](https://www.mdpi.com/2076-3417/12/14/6841) |
