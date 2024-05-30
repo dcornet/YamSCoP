@@ -217,6 +217,115 @@ And finally we can look at the genotype clustering based on color distances betw
 <br>
 
 
+## Interpretation of Color Heterogeneity
+### 1. **Color Coherence Vector (CCV)**
+- **Description**: CCV divides pixels of each color into coherent and incoherent pixels, providing finer detail than simple histograms. Coherent pixels are part of large, uniform color regions, while incoherent pixels belong to small, scattered color regions.
+- **Application**: Measures the spatial coherence of colors, distinguishing between large areas of uniform color and small areas of noise.
+- **Quantitative Metric**: The proportion of coherent pixels versus incoherent pixels for each color can be quantified. High coherence indicates large uniform color regions, while high incoherence indicates noise or high color variability.
+- **Reference URL**: [Color Coherence Vectors](http://vfacstaff.ltu.edu/lshamir/color_coherence/)
+- **R Library**: While there isn't a direct CCV implementation in R, you can use the `EBImage` package for image processing, which can be adapted to implement CCV.
+```R
+install.packages("EBImage")
+library(EBImage)
+````  
+
+<br>
+
+
+### 2. **Standard Deviation and Variance of Color Indices**
+- **Description**: Instead of calculating the standard deviation and variance for each color channel separately (R, G, B), use a combined color index to measure the overall color variability on the tuber surface.
+  - **Standard Deviation** measures the spread of color indices around the mean color index.
+  - **Variance** is the average of the squared deviations from the mean color index.
+- **Application**: High standard deviation and variance of color indices indicate high color heterogeneity.
+- **Quantitative Metric**:
+  - **Combined Color Index (\(CI\))**: A composite index that combines the contributions of R, G, and B channels.
+    \[
+    CI_i = \sqrt{R_i^2 + G_i^2 + B_i^2}
+    \]
+  - **Mean Color Index (\(CI_{mean}\))**:
+    \[
+    CI_{mean} = \frac{1}{N} \sum_{i=1}^{N} CI_i
+    \]
+  - **Standard Deviation (\(\sigma_{CI}\))**:
+    \[
+    \sigma_{CI} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (CI_i - CI_{mean})^2}
+    \]
+  - **Variance (\(Var_{CI}\))**:
+    \[
+    Var_{CI} = \frac{1}{N} \sum_{i=1}^{N} (CI_i - CI_{mean})^2
+    \]
+- **Reference URL**: [Color Indices](https://en.wikipedia.org/wiki/Color_index)
+- **R Library**: The `imager` package in R can be used to calculate color indices and their statistics.
+```R
+install.packages("imager")
+library(imager)
+````  
+
+
+<br>
+
+
+### 3. **Texture Analysis Using Color**
+- **Description**: This involves using texture analysis methods (e.g., Gray Level Co-occurrence Matrix, GLCM) but applied to color images.
+- **Application**: Can identify patterns and structures in the color distribution.
+- **Quantitative Metric**:
+  - **Contrast**: Measures the intensity contrast between a pixel and its neighbor over the whole image.
+  - **Correlation**: Measures how correlated a pixel is to its neighbor over the whole image.
+  - **Energy**: Provides the sum of squared elements in the GLCM.
+  - **Homogeneity**: Measures the closeness of the distribution of elements in the GLCM to the GLCM diagonal.
+- **Reference URL**: [GLCM Tutorial](https://www.fp.ucalgary.ca/mhallbey/tutorial.htm)
+- **R Library**: The `texture` package in R can be used for texture analysis.
+```R
+install.packages("texture")
+library(texture)
+```  
+
+
+<br>
+
+ 
+### 4. **Entropy of Color Distribution**
+- **Description**: Entropy measures the randomness or disorder within the color distribution.
+- **Application**: Higher entropy indicates higher color heterogeneity.
+- **Quantitative Metric**:
+  \[
+  H = - \sum_{i=1}^{k} p_i \log(p_i)
+  \]
+  where \( p_i \) is the normalized probability of the \(i\)-th color value. Higher entropy values correspond to greater color heterogeneity.
+- **Reference URL**: [Entropy in Image Processing](https://en.wikipedia.org/wiki/Entropy_(information_theory))
+- **R Library**: The `imager` package can also be used to calculate entropy.
+```R
+library(imager)
+entropy <- function(img) {
+  hist <- hist(img, plot=FALSE)
+  prob <- hist$counts / sum(hist$counts)
+  -sum(prob * log2(prob + 1e-10))
+}
+```  
+
+
+<br>
+
+ 
+### 5. **K-means Clustering**
+- **Description**: Segment the image into clusters of similar colors and analyze the size and distribution of these clusters.
+- **Application**: Helps in identifying distinct color regions and their variability.
+- **Quantitative Metric**:
+  - **Number of clusters (k)**: Determines the major color groups.
+  - **Cluster sizes**: Proportions of pixels in each cluster.
+  - **Intra-cluster distance**: Measures compactness within clusters.
+  - **Inter-cluster distance**: Measures separation between clusters.
+- **Reference URL**: [K-means Clustering](https://en.wikipedia.org/wiki/K-means_clustering)
+- **R Library**: The `stats` package in base R can be used for K-means clustering.
+```R
+set.seed(123)
+kmeans_result <- kmeans(img_matrix, centers=3)
+```  
+
+
+<br>
+
+
 ## Usage
 Each script is standalone but designed to be run sequentially as part of the pipeline. Detailed instructions on how to execute each script can be found at the top of the script files.
 
