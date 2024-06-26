@@ -217,7 +217,7 @@ And finally we can look at the genotype clustering based on color distances betw
 <br>
 
 
-## Interpretation of Color Heterogeneity
+## Interpretation of Color Heterogeneity (in progress)
 ### 1. **Color Coherence Vector (CCV)**
 - **Description**: CCV divides pixels of each color into coherent and incoherent pixels, providing finer detail than simple histograms. Coherent pixels are part of large, uniform color regions, while incoherent pixels belong to small, scattered color regions.
 - **Application**: Measures the spatial coherence of colors, distinguishing between large areas of uniform color and small areas of noise.
