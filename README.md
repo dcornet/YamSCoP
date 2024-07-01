@@ -256,21 +256,9 @@ In the exemple hereunder the RGB segmented tuber is turned into greyscale using 
 
 <img src="https://github.com/dcornet/YamSCoP/blob/main/Images/HeterIndices.png" width="800"> 
 
-<br>
-
-
-### 2. **Color Coherence Vector (CCV)**
-- **Description**: CCV divides pixels of each color into coherent and incoherent pixels, providing finer detail than simple histograms. Coherent pixels are part of large, uniform color regions, while incoherent pixels belong to small, scattered color regions.
-- **Application**: Measures the spatial coherence of colors, distinguishing between large areas of uniform color and small areas of noise.
-- **Quantitative Metric**: The proportion of coherent pixels versus incoherent pixels for each color can be quantified. High coherence indicates large uniform color regions, while high incoherence indicates noise or high color variability.
-- **Reference URL**: [Color Coherence Vectors](http://vfacstaff.ltu.edu/lshamir/color_coherence/)
-- **R Library**: While there isn't a direct CCV implementation in R, you can use the `EBImage` package for image processing, which can be adapted to implement CCV.
-```R
-install.packages("EBImage")
-library(EBImage)
-````  
 
 <br>
+
 
 ## Interpretation of tuber shape
 ## 1. Characterize Basic Shapes
@@ -280,6 +268,7 @@ Processes shape data from [./out/BasicShapeParams.csv](./out/BasicShapeParams.cs
 Produces box plots saved as PNG files in './out/', comparing different shape traits across genotypes. The plots include statistical annotations to highlight significant differences:  
 
 <img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_ShapeParamByGenotype.png" width="600">  
+
 
 <br>
 
