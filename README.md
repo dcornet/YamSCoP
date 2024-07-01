@@ -24,6 +24,7 @@
   - [2. Characterize Basic Shapes](#2-characterize-basic-shapes)
   - [3. Post-Hoc Comparison of Genotypes for Yellowness](#3-post-hoc-comparison-of-genotypes-for-yellowness)
   - [4. Cluster Tuber Colors](#4-cluster-tuber-colors)
+  - [5. Color Heterogeneity using texture analysis](#5.-Color-Heterogeneity-using-texture-analysis)
 - [Usage](#usage)
 - [Installation](#installation)  
 
@@ -217,8 +218,7 @@ And finally we can look at the genotype clustering based on color distances betw
 <br>
 
 
-## Interpretation of Color Heterogeneity (in progress)
-### 1. **Texture Analysis Using greyscaled images**
+### 5. Color Heterogeneity using texture analysis
 - **Description**: This involves using texture analysis methods (e.g., Gray Level Co-occurrence Matrix, GLCM).
 - **Application**: Can identify patterns and structures in the color distribution.
 - **Quantitative Metric**:
