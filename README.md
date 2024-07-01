@@ -6,8 +6,8 @@
 
 ## Table of Contents
 - [Overview](#overview)
-  - [Projects](#projects)
-  - [Running Example](#running-example)  
+- [Projects](#projects)
+- [Running Example](#running-example)
 - [Image Format and Metadata Management](#image-format-and-metadata-management)
   - [1. Extract EXIF Information from Images](#1-extract-exif-information-from-images)
   - [2. Convert RAW Files to JPG](#2-convert-raw-files-to-jpg)
@@ -21,12 +21,14 @@
   - [2. Extract Tuber Color Matrix](#2-extract-tuber-color-matrix)
 - [Interpretation of Color Values](#interpretation-of-color-values)
   - [1. Derive Color Indices](#1-derive-color-indices)
-  - [2. Characterize Basic Shapes](#2-characterize-basic-shapes)
-  - [3. Post-Hoc Comparison of Genotypes for Yellowness](#3-post-hoc-comparison-of-genotypes-for-yellowness)
-  - [4. Cluster Tuber Colors](#4-cluster-tuber-colors)
-  - [5. Color Heterogeneity using texture analysis](#5.-Color-Heterogeneity-using-texture-analysis)
+  - [2. Post-Hoc Comparison of Genotypes for Yellowness](#2-post-hoc-comparison-of-genotypes-for-yellowness)
+- [Interpretation of Tuber Color Heterogeneity](#interpretation-of-tuber-color-heterogeneity)
+  - [1. Cluster Tuber Colors](#1-cluster-tuber-colors)
+  - [2. Color Heterogeneity Using Texture Analysis](#2-color-heterogeneity-using-texture-analysis)
+- [Interpretation of Tuber Shape](#interpretation-of-tuber-shape)
+  - [1. Characterize Basic Shapes](#1-characterize-basic-shapes)
 - [Usage](#usage)
-- [Installation](#installation)  
+- [Installation](#installation)
 
 <br>
 
