@@ -11,6 +11,8 @@ lapply(packs, InstIfNec)
 # Load data and estimate color indices ----------------------------------------
 # Load informations about images
 df<-readRDS("./out/TuberColors.RDS")
+# Keep only first and last time stamps pics
+df<-subset(df, Time %in% c(0, 870))
 
 rgb_to_grayscale <- function(R, G, B) { return(.299*R+.587*G+.114*B) }
 
@@ -18,14 +20,14 @@ rgb_to_grayscale <- function(R, G, B) { return(.299*R+.587*G+.114*B) }
 ## 1. GLCM texture -------------------------------------------------------------
 # Add a grayscale column
 df <- df %>%
-  mutate(Grayscale = rgb_to_grayscale(R, G, B))
+  mutate(Luminance = rgb_to_grayscale(R, G, B))
 df[, c("X", "Y", "Z")]<-RGB2XYZ(df[, c("R", "G", "B")])
 df$WI<-100-sqrt((100-df$Y)^2+df$X^2+df$Z^2)
 # If one color interest you more, the corresponding color index could be 
 # used profitably in place of grayscale (e.g. White index)
 
-# Keep only first and last time stamps pics
-df<-subset(df, Time %in% c(0, 870))
+# Choose the grayscale type
+GSvar<-"Luminance"
 
 # Initialize an Empty Data Frame to Collect Results:
 results <- data.frame()
@@ -55,7 +57,7 @@ for (i in 1:nrow(unique_groups)) {
   
   # Fill missing Grayscale values with a placeholder (e.g., 0 or NA)
   # complete_data$Grayscale[is.na(complete_data$Grayscale)] <- NA
-  complete_data$WI[is.na(complete_data$WI)] <- NA
+  complete_data[, GSvar][is.na(complete_data[, GSvar])] <- NA
   
   # Determine the dimensions of the image
   width <- max(complete_data$x)
@@ -63,7 +65,7 @@ for (i in 1:nrow(unique_groups)) {
   
   # Convert to matrix form for GLCM calculation
   # mat <- matrix(complete_data$Grayscale, nrow = height, ncol = width, byrow = F)
-  mat <- matrix(complete_data$WI, nrow = height, ncol = width, byrow = F)
+  mat <- matrix(complete_data[, GSvar], nrow = height, ncol = width, byrow = F)
   
   # Convert the matrix to a raster
   r <- raster(mat)
@@ -75,13 +77,13 @@ for (i in 1:nrow(unique_groups)) {
   
   # Plot GLCM metrics
   if (!dir.exists("./out/ColHeterogeneity/")) { dir.create("./out/ColHeterogeneity/", recursive = T) }
-  png(paste0('./out/ColHeterogeneity/WI_', LAB, '.png'), 
+  png(paste0('./out/ColHeterogeneity/',GSvar, '_', LAB, '.png'), 
       width=4*width/height, height=6, res=300, type="cairo", units="in")
   # par(plt = c(0, 1, 0, 1))
   plot(rq_equalprob, col=grey.colors(32), asp=height/width, xlim=c(0,1), ylim=c(0,1), yaxs="i")
-  title('Quantized raw image based on White Index value')
+  title(paste0('Quantized raw image based on ', GSvar, ' value'))
   dev.off()
-  png(paste0('./out/ColHeterogeneity/HeteroIndices_', LAB, '.png'), 
+  png(paste0('./out/ColHeterogeneity/HeteroIndices_', GSvar, '_', LAB, '.png'), 
       width=4*width/height, height=6, res=300, type="cairo", units="in")
   plot(textures1, asp=height/width, add=T, nc=3, include_scale=T, 
        axes=F, colNA="black", reset=T)
