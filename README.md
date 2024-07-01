@@ -6,8 +6,8 @@
 
 ## Table of Contents
 - [Overview](#overview)
-  - [Projects](#projects)
-  - [Running Example](#running-example)  
+- [Projects](#projects)
+- [Running Example](#running-example)
 - [Image Format and Metadata Management](#image-format-and-metadata-management)
   - [1. Extract EXIF Information from Images](#1-extract-exif-information-from-images)
   - [2. Convert RAW Files to JPG](#2-convert-raw-files-to-jpg)
@@ -21,11 +21,14 @@
   - [2. Extract Tuber Color Matrix](#2-extract-tuber-color-matrix)
 - [Interpretation of Color Values](#interpretation-of-color-values)
   - [1. Derive Color Indices](#1-derive-color-indices)
-  - [2. Characterize Basic Shapes](#2-characterize-basic-shapes)
-  - [3. Post-Hoc Comparison of Genotypes for Yellowness](#3-post-hoc-comparison-of-genotypes-for-yellowness)
-  - [4. Cluster Tuber Colors](#4-cluster-tuber-colors)
+  - [2. Post-Hoc Comparison of Genotypes for Yellowness](#2-post-hoc-comparison-of-genotypes-for-yellowness)
+- [Interpretation of Tuber Color Heterogeneity](#interpretation-of-tuber-color-heterogeneity)
+  - [1. Cluster Tuber Colors](#1-cluster-tuber-colors)
+  - [2. Color Heterogeneity Using Texture Analysis](#2-color-heterogeneity-using-texture-analysis)
+- [Interpretation of Tuber Shape](#interpretation-of-tuber-shape)
+  - [1. Characterize Basic Shapes](#1-characterize-basic-shapes)
 - [Usage](#usage)
-- [Installation](#installation)  
+- [Installation](#installation)
 
 <br>
 
@@ -172,17 +175,7 @@ Additionally, relationships between variables can be studied using correlation p
 
 <br>
 
-### 2. Characterize Basic Shapes
-Analyzes basic shape parameters of yams using image processing techniques to quantify morphological traits that are critical for breed characterization and selection.
-This script analyzes the shape parameters of tubers from digitized image data. It adjusts raw measurements for pixel resolution to derive real-world dimensions in millimeters and square centimeters. The script performs statistical comparisons of these shape parameters across different tuber genotypes, using box plots to visually represent variations and conducting post-hoc tests to identify statistically significant differences.
-Processes shape data from [./out/BasicShapeParams.csv](./out/BasicShapeParams.csv), which contains various geometric measurements derived from image analysis.
-Produces box plots saved as PNG files in './out/', comparing different shape traits across genotypes. The plots include statistical annotations to highlight significant differences:  
-
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_ShapeParamByGenotype.png" width="600">  
-
-<br>
-
-### 3. Post-Hoc Comparison of Genotypes for Yellowness
+### 2. Post-Hoc Comparison of Genotypes for Yellowness
 Performs statistical comparisons between different yam genotypes based on the extracted color indices, helping to highlight phenotypic differences driven by genetic variation. This script performs a detailed post hoc statistical comparison of the Yellowness index among different genotypes. It utilizes a Bonferroni adjustment for multiple comparisons and generates box plots to visually represent the differences across genotypes, facilitating the identification of significant variations.
 Reads data from [./out/ColorIndicesByGeniotypeAndTub.csv](./out/ColorIndicesByGeniotypeAndTub.csv), focusing on Yellowness index values. Generates a box plot visualizing the post hoc comparisons of the Yellowness index across genotypes. The plot is saved to [./out/Boxplot_YelIndexPostHocByGenotype.png](./out/Boxplot_YelIndexPostHocByGenotype.png):  
 
@@ -192,7 +185,8 @@ Reads data from [./out/ColorIndicesByGeniotypeAndTub.csv](./out/ColorIndicesByGe
 <br>
 
 
-### 4. Cluster Tuber Colors
+## Interpratation of tuber color heterogeneity
+### 1. Cluster Tuber Colors
 This R script is designed to analyze and visualize color data from images of tubers. It was mostly adapted from the [colordistance vignette](https://cran.r-project.org/web/packages/colordistance/vignettes/color-spaces.html) from Hannah Weller. It begins by loading necessary libraries and reading data from RDS and CSV files. The script defines several functions to convert RGB values to color names ([X11](https://en.wikipedia.org/wiki/X11_color_names), [NTC](https://chir.ag/projects/ntc/ntc.js) or [XKCD](https://xkcd.com/color/rgb/) color name systems), create images from RGB matrices, and perform clustering analysis. It processes each unique combination of genotype and timestamp, creating images and performing k-means clustering on the color data. The script generates plots to visualize color clusters and their proportions, and combines results across different genotypes and timestamps. Finally, it creates heatmaps to show the color distances between clusters, providing a comprehensive analysis of color variations in the tuber images.
 The first clustering method investigated is based on a binning of the 3D RGB color space using getImageHist() function. It allow to plot pixels in a 3D RGB box and to extract average color value for each desired bins from this box:  
 
@@ -213,6 +207,74 @@ Dealing wit 4 genotypes followed during time, it is possible to illustrate the c
 And finally we can look at the genotype clustering based on color distances between them:
 
 <img src="https://github.com/dcornet/YamSCoP/blob/main/out/ColorDistanceHeatmaps.png" width="600"> 
+
+<br>
+
+
+### 2. Color Heterogeneity using texture analysis
+- **Description**: This involves using texture analysis methods (e.g., Gray Level Co-occurrence Matrix, GLCM).
+- **Application**: Can identify patterns and structures in the color distribution.
+- **Quantitative Metric**:
+  - **GLCM Contrast**
+    - **Definition**: Measures the local variations in the GLCM. It is calculated as the sum of the squared differences from the mean.
+    - **Interpretation**: High contrast indicates a high level of local intensity variation, implying a more pronounced texture.
+  - **GLCM Dissimilarity**
+    - **Definition**: Measures the difference between pairs of pixels. It is similar to contrast but less sensitive to larger intensity differences.
+    - **Interpretation**: Higher dissimilarity values indicate greater variation in intensity, representing a rougher texture.
+  - **GLCM Homogeneity**
+    - **Definition**: Measures the closeness of the distribution of elements in the GLCM to the GLCM diagonal.
+    - **Interpretation**: Higher homogeneity values indicate more uniform textures.
+  - **GLCM ASM (Angular Second Moment)**
+    - **Definition**: Measures the uniformity or energy of the GLCM. It is the sum of the squared elements in the GLCM.
+    - **Interpretation**: High ASM values indicate textures with repetitive patterns and lower complexity.
+  - **GLCM Entropy**
+    - **Definition**: Measures the randomness in the GLCM. It is calculated as the negative sum of the probability of occurrence multiplied by the logarithm of the probability.
+    - **Interpretation**: High entropy indicates a more complex texture with higher randomness.
+  - **GLCM Mean**
+    - **Definition**: The mean intensity of the pixel pairs in the GLCM.
+    - **Interpretation**: Represents the average texture intensity.
+  - **GLCM Variance**
+    - **Definition**: Measures the dispersion of intensities in the GLCM.
+    - **Interpretation**: High variance indicates more significant intensity variation.
+  - **GLCM Correlation**
+    - **Definition**: Measures how correlated a pixel is to its neighbor over the entire image.
+    - **Interpretation**: Higher correlation values indicate a more predictable texture pattern.
+  - **GLCM SA (Sum Average)**
+    - **Definition**: Sum average is the mean of the sums of the elements in the GLCM.
+    - **Interpretation**: It is related to the average intensity of the texture.
+- **Reference URL**: [GLCM Tutorial](https://www.fp.ucalgary.ca/mhallbey/tutorial.htm)
+- **R Library**: The `GLCMTextures` package in R can be used for texture analysis.
+
+```R
+install.packages("GLCMTextures")
+library(GLCMTextures)
+```
+
+
+<br>
+
+
+### 2. **Color Coherence Vector (CCV)**
+- **Description**: CCV divides pixels of each color into coherent and incoherent pixels, providing finer detail than simple histograms. Coherent pixels are part of large, uniform color regions, while incoherent pixels belong to small, scattered color regions.
+- **Application**: Measures the spatial coherence of colors, distinguishing between large areas of uniform color and small areas of noise.
+- **Quantitative Metric**: The proportion of coherent pixels versus incoherent pixels for each color can be quantified. High coherence indicates large uniform color regions, while high incoherence indicates noise or high color variability.
+- **Reference URL**: [Color Coherence Vectors](http://vfacstaff.ltu.edu/lshamir/color_coherence/)
+- **R Library**: While there isn't a direct CCV implementation in R, you can use the `EBImage` package for image processing, which can be adapted to implement CCV.
+```R
+install.packages("EBImage")
+library(EBImage)
+````  
+
+<br>
+
+## Interpratation of tuber shape
+## 1. Characterize Basic Shapes
+Analyzes basic shape parameters of yams using image processing techniques to quantify morphological traits that are critical for breed characterization and selection.
+This script analyzes the shape parameters of tubers from digitized image data. It adjusts raw measurements for pixel resolution to derive real-world dimensions in millimeters and square centimeters. The script performs statistical comparisons of these shape parameters across different tuber genotypes, using box plots to visually represent variations and conducting post-hoc tests to identify statistically significant differences.
+Processes shape data from [./out/BasicShapeParams.csv](./out/BasicShapeParams.csv), which contains various geometric measurements derived from image analysis.
+Produces box plots saved as PNG files in './out/', comparing different shape traits across genotypes. The plots include statistical annotations to highlight significant differences:  
+
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_ShapeParamByGenotype.png" width="600">  
 
 <br>
 
@@ -255,7 +317,7 @@ Ensure R is installed on your machine along with the necessary packages:
 - [foreach](https://cran.r-project.org/web/packages/foreach/vignettes/foreach.html) - For executing looping constructs.
 - [parallel](https://cran.r-project.org/web/packages/parallel/vignettes/parallel.pdf) - For support for parallel computation.
 
-## Statistical Modeling and Analysis
+### Statistical Modeling and Analysis
 - [inti](https://cran.r-project.org/web/packages/inti/vignettes/inti.html) - For genetic statistics such as heritability.
 - [lme4](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.html) - For fitting linear mixed-effects models.
 - [lmerTest](https://cran.r-project.org/web/packages/lmerTest/vignettes/lmerTest.html) - To provide p-values for linear mixed-effect models.
