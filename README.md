@@ -185,7 +185,7 @@ Reads data from [./out/ColorIndicesByGeniotypeAndTub.csv](./out/ColorIndicesByGe
 <br>
 
 
-## Interpratation of tuber color heterogeneity
+## Interpretation of tuber color heterogeneity
 ### 1. Cluster Tuber Colors
 This R script is designed to analyze and visualize color data from images of tubers. It was mostly adapted from the [colordistance vignette](https://cran.r-project.org/web/packages/colordistance/vignettes/color-spaces.html) from Hannah Weller. It begins by loading necessary libraries and reading data from RDS and CSV files. The script defines several functions to convert RGB values to color names ([X11](https://en.wikipedia.org/wiki/X11_color_names), [NTC](https://chir.ag/projects/ntc/ntc.js) or [XKCD](https://xkcd.com/color/rgb/) color name systems), create images from RGB matrices, and perform clustering analysis. It processes each unique combination of genotype and timestamp, creating images and performing k-means clustering on the color data. The script generates plots to visualize color clusters and their proportions, and combines results across different genotypes and timestamps. Finally, it creates heatmaps to show the color distances between clusters, providing a comprehensive analysis of color variations in the tuber images.
 The first clustering method investigated is based on a binning of the 3D RGB color space using getImageHist() function. It allow to plot pixels in a 3D RGB box and to extract average color value for each desired bins from this box:  
@@ -272,7 +272,7 @@ library(EBImage)
 
 <br>
 
-## Interpratation of tuber shape
+## Interpretation of tuber shape
 ## 1. Characterize Basic Shapes
 Analyzes basic shape parameters of yams using image processing techniques to quantify morphological traits that are critical for breed characterization and selection.
 This script analyzes the shape parameters of tubers from digitized image data. It adjusts raw measurements for pixel resolution to derive real-world dimensions in millimeters and square centimeters. The script performs statistical comparisons of these shape parameters across different tuber genotypes, using box plots to visually represent variations and conducting post-hoc tests to identify statistically significant differences.
