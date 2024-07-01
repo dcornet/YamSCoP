@@ -250,6 +250,11 @@ install.packages("GLCMTextures")
 library(GLCMTextures)
 ```
 
+<br>
+
+In the exemple hereunder the RGB segmented tuber is turned into greyscale using luminance value. Afterward the GLCM and derivated indices are calculated:
+
+<img src="https://github.com/dcornet/YamSCoP/blob/main/Images/HeterIndicess.png" width="800"> 
 
 <br>
 
