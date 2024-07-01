@@ -173,17 +173,7 @@ Additionally, relationships between variables can be studied using correlation p
 
 <br>
 
-### 2. Characterize Basic Shapes
-Analyzes basic shape parameters of yams using image processing techniques to quantify morphological traits that are critical for breed characterization and selection.
-This script analyzes the shape parameters of tubers from digitized image data. It adjusts raw measurements for pixel resolution to derive real-world dimensions in millimeters and square centimeters. The script performs statistical comparisons of these shape parameters across different tuber genotypes, using box plots to visually represent variations and conducting post-hoc tests to identify statistically significant differences.
-Processes shape data from [./out/BasicShapeParams.csv](./out/BasicShapeParams.csv), which contains various geometric measurements derived from image analysis.
-Produces box plots saved as PNG files in './out/', comparing different shape traits across genotypes. The plots include statistical annotations to highlight significant differences:  
-
-<img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_ShapeParamByGenotype.png" width="600">  
-
-<br>
-
-### 3. Post-Hoc Comparison of Genotypes for Yellowness
+### 2. Post-Hoc Comparison of Genotypes for Yellowness
 Performs statistical comparisons between different yam genotypes based on the extracted color indices, helping to highlight phenotypic differences driven by genetic variation. This script performs a detailed post hoc statistical comparison of the Yellowness index among different genotypes. It utilizes a Bonferroni adjustment for multiple comparisons and generates box plots to visually represent the differences across genotypes, facilitating the identification of significant variations.
 Reads data from [./out/ColorIndicesByGeniotypeAndTub.csv](./out/ColorIndicesByGeniotypeAndTub.csv), focusing on Yellowness index values. Generates a box plot visualizing the post hoc comparisons of the Yellowness index across genotypes. The plot is saved to [./out/Boxplot_YelIndexPostHocByGenotype.png](./out/Boxplot_YelIndexPostHocByGenotype.png):  
 
@@ -193,7 +183,8 @@ Reads data from [./out/ColorIndicesByGeniotypeAndTub.csv](./out/ColorIndicesByGe
 <br>
 
 
-### 4. Cluster Tuber Colors
+## Interpratation of tuber color heterogeneity
+### 1. Cluster Tuber Colors
 This R script is designed to analyze and visualize color data from images of tubers. It was mostly adapted from the [colordistance vignette](https://cran.r-project.org/web/packages/colordistance/vignettes/color-spaces.html) from Hannah Weller. It begins by loading necessary libraries and reading data from RDS and CSV files. The script defines several functions to convert RGB values to color names ([X11](https://en.wikipedia.org/wiki/X11_color_names), [NTC](https://chir.ag/projects/ntc/ntc.js) or [XKCD](https://xkcd.com/color/rgb/) color name systems), create images from RGB matrices, and perform clustering analysis. It processes each unique combination of genotype and timestamp, creating images and performing k-means clustering on the color data. The script generates plots to visualize color clusters and their proportions, and combines results across different genotypes and timestamps. Finally, it creates heatmaps to show the color distances between clusters, providing a comprehensive analysis of color variations in the tuber images.
 The first clustering method investigated is based on a binning of the 3D RGB color space using getImageHist() function. It allow to plot pixels in a 3D RGB box and to extract average color value for each desired bins from this box:  
 
@@ -218,7 +209,7 @@ And finally we can look at the genotype clustering based on color distances betw
 <br>
 
 
-### 5. Color Heterogeneity using texture analysis
+### 2. Color Heterogeneity using texture analysis
 - **Description**: This involves using texture analysis methods (e.g., Gray Level Co-occurrence Matrix, GLCM).
 - **Application**: Can identify patterns and structures in the color distribution.
 - **Quantitative Metric**:
@@ -274,78 +265,14 @@ library(EBImage)
 
 <br>
 
+## Interpratation of tuber shape
+## 1. Characterize Basic Shapes
+Analyzes basic shape parameters of yams using image processing techniques to quantify morphological traits that are critical for breed characterization and selection.
+This script analyzes the shape parameters of tubers from digitized image data. It adjusts raw measurements for pixel resolution to derive real-world dimensions in millimeters and square centimeters. The script performs statistical comparisons of these shape parameters across different tuber genotypes, using box plots to visually represent variations and conducting post-hoc tests to identify statistically significant differences.
+Processes shape data from [./out/BasicShapeParams.csv](./out/BasicShapeParams.csv), which contains various geometric measurements derived from image analysis.
+Produces box plots saved as PNG files in './out/', comparing different shape traits across genotypes. The plots include statistical annotations to highlight significant differences:  
 
-### 3. **Standard Deviation and Variance of Color Indices**
-- **Description**: Instead of calculating the standard deviation and variance for each color channel separately (R, G, B), use a combined color index to measure the overall color variability on the tuber surface.
-  - **Standard Deviation** measures the spread of color indices around the mean color index.
-  - **Variance** is the average of the squared deviations from the mean color index.
-- **Application**: High standard deviation and variance of color indices indicate high color heterogeneity.
-- **Quantitative Metric**:
-  - **Combined Color Index (\(CI\))**: A composite index that combines the contributions of R, G, and B channels.
-    \[
-    CI_i = \sqrt{R_i^2 + G_i^2 + B_i^2}
-    \]
-  - **Mean Color Index (\(CI_{mean}\))**:
-    \[
-    CI_{mean} = \frac{1}{N} \sum_{i=1}^{N} CI_i
-    \]
-  - **Standard Deviation (\(\sigma_{CI}\))**:
-    \[
-    \sigma_{CI} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (CI_i - CI_{mean})^2}
-    \]
-  - **Variance (\(Var_{CI}\))**:
-    \[
-    Var_{CI} = \frac{1}{N} \sum_{i=1}^{N} (CI_i - CI_{mean})^2
-    \]
-- **Reference URL**: [Color Indices](https://en.wikipedia.org/wiki/Color_index)
-- **R Library**: The `imager` package in R can be used to calculate color indices and their statistics.
-```R
-install.packages("imager")
-library(imager)
-````  
-
-
-<br>
-
- 
-### 4. **Entropy of Color Distribution**
-- **Description**: Entropy measures the randomness or disorder within the color distribution.
-- **Application**: Higher entropy indicates higher color heterogeneity.
-- **Quantitative Metric**:
-  \[
-  H = - \sum_{i=1}^{k} p_i \log(p_i)
-  \]
-  where \( p_i \) is the normalized probability of the \(i\)-th color value. Higher entropy values correspond to greater color heterogeneity.
-- **Reference URL**: [Entropy in Image Processing](https://en.wikipedia.org/wiki/Entropy_(information_theory))
-- **R Library**: The `imager` package can also be used to calculate entropy.
-```R
-library(imager)
-entropy <- function(img) {
-  hist <- hist(img, plot=FALSE)
-  prob <- hist$counts / sum(hist$counts)
-  -sum(prob * log2(prob + 1e-10))
-}
-```  
-
-
-<br>
-
- 
-### 5. **K-means Clustering**
-- **Description**: Segment the image into clusters of similar colors and analyze the size and distribution of these clusters.
-- **Application**: Helps in identifying distinct color regions and their variability.
-- **Quantitative Metric**:
-  - **Number of clusters (k)**: Determines the major color groups.
-  - **Cluster sizes**: Proportions of pixels in each cluster.
-  - **Intra-cluster distance**: Measures compactness within clusters.
-  - **Inter-cluster distance**: Measures separation between clusters.
-- **Reference URL**: [K-means Clustering](https://en.wikipedia.org/wiki/K-means_clustering)
-- **R Library**: The `stats` package in base R can be used for K-means clustering.
-```R
-set.seed(123)
-kmeans_result <- kmeans(img_matrix, centers=3)
-```  
-
+<img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_ShapeParamByGenotype.png" width="600">  
 
 <br>
 
@@ -388,7 +315,7 @@ Ensure R is installed on your machine along with the necessary packages:
 - [foreach](https://cran.r-project.org/web/packages/foreach/vignettes/foreach.html) - For executing looping constructs.
 - [parallel](https://cran.r-project.org/web/packages/parallel/vignettes/parallel.pdf) - For support for parallel computation.
 
-## Statistical Modeling and Analysis
+### Statistical Modeling and Analysis
 - [inti](https://cran.r-project.org/web/packages/inti/vignettes/inti.html) - For genetic statistics such as heritability.
 - [lme4](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.html) - For fitting linear mixed-effects models.
 - [lmerTest](https://cran.r-project.org/web/packages/lmerTest/vignettes/lmerTest.html) - To provide p-values for linear mixed-effect models.
