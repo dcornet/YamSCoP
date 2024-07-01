@@ -218,7 +218,50 @@ And finally we can look at the genotype clustering based on color distances betw
 
 
 ## Interpretation of Color Heterogeneity (in progress)
-### 1. **Color Coherence Vector (CCV)**
+### 1. **Texture Analysis Using greyscaled images**
+- **Description**: This involves using texture analysis methods (e.g., Gray Level Co-occurrence Matrix, GLCM).
+- **Application**: Can identify patterns and structures in the color distribution.
+- **Quantitative Metric**:
+  - **GLCM Contrast**
+    - **Definition**: Measures the local variations in the GLCM. It is calculated as the sum of the squared differences from the mean.
+    - **Interpretation**: High contrast indicates a high level of local intensity variation, implying a more pronounced texture.
+  - **GLCM Dissimilarity**
+    - **Definition**: Measures the difference between pairs of pixels. It is similar to contrast but less sensitive to larger intensity differences.
+    - **Interpretation**: Higher dissimilarity values indicate greater variation in intensity, representing a rougher texture.
+  - **GLCM Homogeneity**
+    - **Definition**: Measures the closeness of the distribution of elements in the GLCM to the GLCM diagonal.
+    - **Interpretation**: Higher homogeneity values indicate more uniform textures.
+  - **GLCM ASM (Angular Second Moment)**
+    - **Definition**: Measures the uniformity or energy of the GLCM. It is the sum of the squared elements in the GLCM.
+    - **Interpretation**: High ASM values indicate textures with repetitive patterns and lower complexity.
+  - **GLCM Entropy**
+    - **Definition**: Measures the randomness in the GLCM. It is calculated as the negative sum of the probability of occurrence multiplied by the logarithm of the probability.
+    - **Interpretation**: High entropy indicates a more complex texture with higher randomness.
+  - **GLCM Mean**
+    - **Definition**: The mean intensity of the pixel pairs in the GLCM.
+    - **Interpretation**: Represents the average texture intensity.
+  - **GLCM Variance**
+    - **Definition**: Measures the dispersion of intensities in the GLCM.
+    - **Interpretation**: High variance indicates more significant intensity variation.
+  - **GLCM Correlation**
+    - **Definition**: Measures how correlated a pixel is to its neighbor over the entire image.
+    - **Interpretation**: Higher correlation values indicate a more predictable texture pattern.
+  - **GLCM SA (Sum Average)**
+    - **Definition**: Sum average is the mean of the sums of the elements in the GLCM.
+    - **Interpretation**: It is related to the average intensity of the texture.
+- **Reference URL**: [GLCM Tutorial](https://www.fp.ucalgary.ca/mhallbey/tutorial.htm)
+- **R Library**: The `GLCMTextures` package in R can be used for texture analysis.
+
+```R
+install.packages("GLCMTextures")
+library(GLCMTextures)
+```
+
+
+<br>
+
+
+### 2. **Color Coherence Vector (CCV)**
 - **Description**: CCV divides pixels of each color into coherent and incoherent pixels, providing finer detail than simple histograms. Coherent pixels are part of large, uniform color regions, while incoherent pixels belong to small, scattered color regions.
 - **Application**: Measures the spatial coherence of colors, distinguishing between large areas of uniform color and small areas of noise.
 - **Quantitative Metric**: The proportion of coherent pixels versus incoherent pixels for each color can be quantified. High coherence indicates large uniform color regions, while high incoherence indicates noise or high color variability.
@@ -232,7 +275,7 @@ library(EBImage)
 <br>
 
 
-### 2. **Standard Deviation and Variance of Color Indices**
+### 3. **Standard Deviation and Variance of Color Indices**
 - **Description**: Instead of calculating the standard deviation and variance for each color channel separately (R, G, B), use a combined color index to measure the overall color variability on the tuber surface.
   - **Standard Deviation** measures the spread of color indices around the mean color index.
   - **Variance** is the average of the squared deviations from the mean color index.
@@ -260,25 +303,6 @@ library(EBImage)
 install.packages("imager")
 library(imager)
 ````  
-
-
-<br>
-
-
-### 3. **Texture Analysis Using Color**
-- **Description**: This involves using texture analysis methods (e.g., Gray Level Co-occurrence Matrix, GLCM) but applied to color images.
-- **Application**: Can identify patterns and structures in the color distribution.
-- **Quantitative Metric**:
-  - **Contrast**: Measures the intensity contrast between a pixel and its neighbor over the whole image.
-  - **Correlation**: Measures how correlated a pixel is to its neighbor over the whole image.
-  - **Energy**: Provides the sum of squared elements in the GLCM.
-  - **Homogeneity**: Measures the closeness of the distribution of elements in the GLCM to the GLCM diagonal.
-- **Reference URL**: [GLCM Tutorial](https://www.fp.ucalgary.ca/mhallbey/tutorial.htm)
-- **R Library**: The `texture` package in R can be used for texture analysis.
-```R
-install.packages("texture")
-library(texture)
-```  
 
 
 <br>
