@@ -1,6 +1,6 @@
 # Libraries loading ----------------------------------------------------
 packs <- c( "tidyverse", "EBImage", "imager", "GLCMTextures", "raster",
-            "colorscience", "data.table", "png", "corrplot", "corrplot")
+            "colorscience", "data.table", "png", "corrplot")
 InstIfNec<-function (pack) {
   if (!do.call(require,as.list(pack))) {
     do.call(install.packages,as.list(pack))  }
