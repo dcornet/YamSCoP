@@ -22,10 +22,10 @@
 - [Interpretation of Color Values](#interpretation-of-color-values)
   - [1. Derive Color Indices](#1-derive-color-indices)
   - [2. Post-Hoc Comparison of Genotypes for Yellowness](#2-post-hoc-comparison-of-genotypes-for-yellowness)
-- [Interpretation of Tuber Color Heterogeneity](#interpretation-of-tuber-color-heterogeneity)
+- [Interpretation of tuber color heterogeneity](#interpretation-of-tuber-color-heterogeneity)
   - [1. Cluster Tuber Colors](#1-cluster-tuber-colors)
   - [2. Color Heterogeneity Using Texture Analysis](#2-color-heterogeneity-using-texture-analysis)
-- [Interpretation of Tuber Shape](#interpretation-of-tuber-shape)
+- [Interpretation of tuber shape](#interpretation-of-tuber-shape)
   - [1. Characterize Basic Shapes](#1-characterize-basic-shapes)
 - [Usage](#usage)
 - [Installation](#installation)
@@ -185,7 +185,7 @@ Reads data from [./out/ColorIndicesByGeniotypeAndTub.csv](./out/ColorIndicesByGe
 <br>
 
 
-## Interpratation of tuber color heterogeneity
+## Interpretation of tuber color heterogeneity
 ### 1. Cluster Tuber Colors
 This R script is designed to analyze and visualize color data from images of tubers. It was mostly adapted from the [colordistance vignette](https://cran.r-project.org/web/packages/colordistance/vignettes/color-spaces.html) from Hannah Weller. It begins by loading necessary libraries and reading data from RDS and CSV files. The script defines several functions to convert RGB values to color names ([X11](https://en.wikipedia.org/wiki/X11_color_names), [NTC](https://chir.ag/projects/ntc/ntc.js) or [XKCD](https://xkcd.com/color/rgb/) color name systems), create images from RGB matrices, and perform clustering analysis. It processes each unique combination of genotype and timestamp, creating images and performing k-means clustering on the color data. The script generates plots to visualize color clusters and their proportions, and combines results across different genotypes and timestamps. Finally, it creates heatmaps to show the color distances between clusters, providing a comprehensive analysis of color variations in the tuber images.
 The first clustering method investigated is based on a binning of the 3D RGB color space using getImageHist() function. It allow to plot pixels in a 3D RGB box and to extract average color value for each desired bins from this box:  
@@ -250,24 +250,17 @@ install.packages("GLCMTextures")
 library(GLCMTextures)
 ```
 
+<br>
+
+In the exemple hereunder the RGB segmented tuber is turned into greyscale using luminance value. Afterward the GLCM and derivated indices are calculated:
+
+<img src="https://github.com/dcornet/YamSCoP/blob/main/Images/HeterIndices.png" width="800"> 
+
 
 <br>
 
 
-### 2. **Color Coherence Vector (CCV)**
-- **Description**: CCV divides pixels of each color into coherent and incoherent pixels, providing finer detail than simple histograms. Coherent pixels are part of large, uniform color regions, while incoherent pixels belong to small, scattered color regions.
-- **Application**: Measures the spatial coherence of colors, distinguishing between large areas of uniform color and small areas of noise.
-- **Quantitative Metric**: The proportion of coherent pixels versus incoherent pixels for each color can be quantified. High coherence indicates large uniform color regions, while high incoherence indicates noise or high color variability.
-- **Reference URL**: [Color Coherence Vectors](http://vfacstaff.ltu.edu/lshamir/color_coherence/)
-- **R Library**: While there isn't a direct CCV implementation in R, you can use the `EBImage` package for image processing, which can be adapted to implement CCV.
-```R
-install.packages("EBImage")
-library(EBImage)
-````  
-
-<br>
-
-## Interpratation of tuber shape
+## Interpretation of tuber shape
 ## 1. Characterize Basic Shapes
 Analyzes basic shape parameters of yams using image processing techniques to quantify morphological traits that are critical for breed characterization and selection.
 This script analyzes the shape parameters of tubers from digitized image data. It adjusts raw measurements for pixel resolution to derive real-world dimensions in millimeters and square centimeters. The script performs statistical comparisons of these shape parameters across different tuber genotypes, using box plots to visually represent variations and conducting post-hoc tests to identify statistically significant differences.
@@ -275,6 +268,7 @@ Processes shape data from [./out/BasicShapeParams.csv](./out/BasicShapeParams.cs
 Produces box plots saved as PNG files in './out/', comparing different shape traits across genotypes. The plots include statistical annotations to highlight significant differences:  
 
 <img src="https://github.com/dcornet/YamSCoP/blob/main/out/Boxplot_ShapeParamByGenotype.png" width="600">  
+
 
 <br>
 
