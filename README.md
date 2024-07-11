@@ -261,7 +261,7 @@ In the exemple hereunder the RGB segmented tuber is turned into greyscale using 
 
 
 ## Interpretation of tuber shape
-## 1. Characterize Basic Shapes
+### 1. Characterize Basic Shapes
 Analyzes basic shape parameters of yams using image processing techniques to quantify morphological traits that are critical for breed characterization and selection.
 This script analyzes the shape parameters of tubers from digitized image data. It adjusts raw measurements for pixel resolution to derive real-world dimensions in millimeters and square centimeters. The script performs statistical comparisons of these shape parameters across different tuber genotypes, using box plots to visually represent variations and conducting post-hoc tests to identify statistically significant differences.
 Processes shape data from [./out/BasicShapeParams.csv](./out/BasicShapeParams.csv), which contains various geometric measurements derived from image analysis.
@@ -271,6 +271,152 @@ Produces box plots saved as PNG files in './out/', comparing different shape tra
 
 
 <br>
+
+
+### 2. More advanced Shape Indices
+
+#### Indices description
+
+##### 1. Compactness
+
+**Definition:**
+Compactness is a measure of how closely an object resembles a perfect circle. It is used to quantify the roundness of a shape.
+
+**Method:**
+Compactness = (Perimeter^2) / (4 * π * Area)
+
+**Interpretation:**
+- A compactness value close to 1 indicates that the shape is very close to a perfect circle.
+- Higher values indicate more complex, elongated, or irregular shapes.
+
+**Pros:**
+- Simple to calculate.
+- Useful for distinguishing between round and irregular shapes.
+
+**Cons:**
+- Sensitive to noise and boundary irregularities.
+- Does not account for the internal structure of the shape.
+
+##### 2. Circularity Ratio
+
+**Definition:**
+Circularity ratio, also known as form factor, is another measure of how similar an object is to a circle.
+
+**Method:**
+Circularity Ratio = (4 * π * Area) / (Perimeter^2)
+
+**Interpretation:**
+- A circularity ratio of 1 indicates a perfect circle.
+- Values less than 1 indicate less circular shapes.
+
+**Pros:**
+- Provides a straightforward assessment of circularity.
+- Easy to compute.
+
+**Cons:**
+- Sensitive to the accuracy of perimeter measurement.
+- Less effective for highly irregular shapes.
+
+##### 3. Aspect Ratio
+
+**Definition:**
+Aspect ratio is the ratio of the width to the height of the bounding box of an object.
+
+**Method:**
+Aspect Ratio = Width / Height
+
+**Interpretation:**
+- An aspect ratio of 1 indicates a square shape.
+- Values greater or less than 1 indicate elongation in width or height, respectively.
+
+**Pros:**
+- Simple and intuitive measure.
+- Useful for distinguishing elongated shapes.
+
+**Cons:**
+- Does not account for the internal structure or boundary complexity.
+- Can be misleading for shapes with irregular boundaries.
+
+##### 4. Fractal Dimension
+
+**Definition:**
+Fractal dimension quantifies the complexity of a shape by describing how detail in a pattern changes with the scale at which it is measured.
+
+**Method:**
+Commonly calculated using the box-counting method.
+
+**Interpretation:**
+- A higher fractal dimension indicates a more complex and detailed boundary.
+- Values typically range between 1 (simple curve) and 2 (complex plane-filling curve).
+
+**Pros:**
+- Captures boundary complexity and detail.
+- Useful for characterizing natural and irregular shapes.
+
+**Cons:**
+- Computationally intensive.
+- Sensitive to the resolution of the shape representation.
+
+##### 5. Elongation Index
+
+**Definition:**
+Elongation index measures how much longer a shape is in one dimension compared to another.
+
+**Method:**
+Elongation Index = Length of Major Axis / Length of Minor Axis
+
+**Interpretation:**
+- Higher values indicate more elongated shapes.
+- Values close to 1 indicate more equidimensional shapes.
+
+**Pros:**
+- Easy to understand and compute.
+- Useful for identifying elongated structures.
+
+**Cons:**
+- Does not capture boundary irregularities.
+- Sensitive to the orientation of the shape.
+
+##### 6. Roundness
+
+**Definition:**
+Roundness measures how closely the shape of an object approaches that of a circle, considering the smoothness of the object's perimeter.
+
+**Method:**
+Different methods exist, but one common method is:
+Roundness = (4 * Area) / (π * (Major Axis Length)^2)
+
+**Interpretation:**
+- A value close to 1 indicates a round shape.
+- Lower values indicate less round and more elongated shapes.
+
+**Pros:**
+- Intuitive measure for assessing shape roundness.
+- Useful for geological and biological shape analysis.
+
+**Cons:**
+- Does not capture boundary detail or complexity.
+- Sensitive to the definition of major axis length.
+
+##### 7. Solidity
+
+**Definition:**
+Solidity is the ratio of the area of the shape to the area of its convex hull.
+
+**Method:**
+Solidity = Area of Shape / Area of Convex Hull
+
+**Interpretation:**
+- A solidity value of 1 indicates no concavities (perfectly convex shape).
+- Lower values indicate more concave regions.
+
+**Pros:**
+- Captures the concavity of the shape.
+- Useful for identifying irregular and concave shapes.
+
+**Cons:**
+- Does not differentiate between types of concavities.
+- Sensitive to noise and small boundary variations.
 
 
 ## Usage
