@@ -358,6 +358,9 @@ This script analyzes the shape parameters of either basic shapes, or tubers mask
 
 The script produce charts of shape indices applied to basics shapes and tuber masks:
 <img src="https://github.com/dcornet/YamSCoP/blob/main/out/ShapeIndices_shapes.png" width="600">  
+
+<br>
+
 <img src="https://github.com/dcornet/YamSCoP/blob/main/out/AdvancedShapeIndicesByGen.png" width="800">  
 
 
