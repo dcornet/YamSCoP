@@ -27,6 +27,7 @@
   - [2. Color Heterogeneity Using Texture Analysis](#2-color-heterogeneity-using-texture-analysis)
 - [Interpretation of tuber shape](#interpretation-of-tuber-shape)
   - [1. Characterize Basic Shapes](#1-characterize-basic-shapes)
+  - [2. More advanced Shape Indices](#2-more-advanced-shape-indices)
 - [Usage](#usage)
 - [Installation](#installation)
 
